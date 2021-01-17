@@ -1,0 +1,56 @@
+{
+	"folders": [
+		{
+			"name": "SpaceFactory",
+			"path": "."
+		},
+		{
+			"name": "UE4",
+			"path": "D:\\UE_4.26"
+		}
+	],
+	"settings": {
+		"typescript.tsc.autoDetect": "off",
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			"**.exe": true,
+			"**.dll": true,
+			"**.egstore": true,
+			"**.generated.h": true,
+			"**.uasset": true,
+			"**.gitignore": true,
+			"**.gitattributes": true,
+			"**/Intermediate": true,
+			"**/Saved": true,
+			"**/Binaries": true,
+			"**/Build": true,
+			"**/DerivedDataCache": true,
+			"**/Documentation": true,
+			"**/Programs": true,
+			"**/FeaturePacks": true,
+			"**/Samples": true,
+			"**/Templates": true,
+			"**/Extras": true,
+			"**/Engine/Source/Editor": true,
+			"**/Content": true,
+			"**/Resources": true
+		},
+		"files.watcherExclude": {
+			"**/.git/objects/**": true,
+			"**/.git/subtree-cache/**": true,
+			"**/node_modules/*/**": true,
+			"**/.hg/store/**": true,
+			"**/Engine/**": true
+		}
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-vscode.cpptools",
+			"ms-dotnettools.csharp"
+		]
+	}
+}

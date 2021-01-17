@@ -1,0 +1,128 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "SpaceFactory (Debug)",
+			"request": "launch",
+			"preLaunchTask": "SpaceFactory Win64 Debug Build",
+			"program": "C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\Binaries\\Win64\\UE4-Win64-Debug.exe",
+			"args": [
+			],
+			"cwd": "D:\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "SpaceFactory (DebugGame)",
+			"request": "launch",
+			"preLaunchTask": "SpaceFactory Win64 DebugGame Build",
+			"program": "C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\Binaries\\Win64\\UE4-Win64-DebugGame.exe",
+			"args": [
+			],
+			"cwd": "D:\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "SpaceFactory (Development)",
+			"request": "launch",
+			"preLaunchTask": "SpaceFactory Win64 Development Build",
+			"program": "C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\Binaries\\Win64\\UE4.exe",
+			"args": [
+			],
+			"cwd": "D:\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "SpaceFactory (Shipping)",
+			"request": "launch",
+			"preLaunchTask": "SpaceFactory Win64 Shipping Build",
+			"program": "C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\Binaries\\Win64\\UE4-Win64-Shipping.exe",
+			"args": [
+			],
+			"cwd": "D:\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "SpaceFactory (Test)",
+			"request": "launch",
+			"preLaunchTask": "SpaceFactory Win64 Test Build",
+			"program": "C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\Binaries\\Win64\\UE4-Win64-Test.exe",
+			"args": [
+			],
+			"cwd": "D:\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "SpaceFactoryEditor (Debug)",
+			"request": "launch",
+			"preLaunchTask": "SpaceFactoryEditor Win64 Debug Build",
+			"program": "D:\\UE_4.26\\Engine\\Binaries\\Win64\\UE4Editor-Win64-Debug.exe",
+			"args": [
+				"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\SpaceFactory.uproject"
+			],
+			"cwd": "D:\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "SpaceFactoryEditor (DebugGame)",
+			"request": "launch",
+			"preLaunchTask": "SpaceFactoryEditor Win64 DebugGame Build",
+			"program": "D:\\UE_4.26\\Engine\\Binaries\\Win64\\UE4Editor-Win64-DebugGame.exe",
+			"args": [
+				"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\SpaceFactory.uproject"
+			],
+			"cwd": "D:\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "SpaceFactoryEditor (Development)",
+			"request": "launch",
+			"preLaunchTask": "SpaceFactoryEditor Win64 Development Build",
+			"program": "D:\\UE_4.26\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+			"args": [
+				"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\SpaceFactory.uproject"
+			],
+			"cwd": "D:\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "Generate Project Files",
+			"type": "clr",
+			"request": "launch",
+			"program": "D:\\UE_4.26\\Engine\\Binaries\\DotNET\\UnrealBuildTool.exe",
+			"console": "externalTerminal",
+			"args": [
+				"-projectfiles",
+				"-vscode",
+				"-project=\"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\SpaceFactory.uproject\"",
+				"-game",
+				"-engine"
+			],
+			"internalConsoleOptions": "openOnSessionStart",
+			"cwd": "D:\\UE_4.26"
+		}
+	]
+}
