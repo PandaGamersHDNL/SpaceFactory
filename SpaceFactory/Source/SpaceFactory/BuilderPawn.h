@@ -32,4 +32,5 @@ public:
 	void MoveForward(float Scale);
 	void MoveRight(float Scale);
 
+	
 };

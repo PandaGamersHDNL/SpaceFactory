@@ -2,13 +2,17 @@
 
 
 #include "BuilderPawn.h"
+#include "Camera/CameraComponent.h"
 
 // Sets default values
 ABuilderPawn::ABuilderPawn()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	RootComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	
+	 
+	//AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform, TEXT("Mesh"));
 }
 
 // Called when the game starts or when spawned
@@ -32,6 +36,7 @@ void ABuilderPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAxis("MoveForward", this, &ABuilderPawn::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &ABuilderPawn::MoveRight);
 }
 
 void ABuilderPawn::MoveForward(float Scale)
@@ -41,5 +46,6 @@ void ABuilderPawn::MoveForward(float Scale)
 
 void ABuilderPawn::MoveRight(float Scale)
 {
+	
 	AddMovementInput(FVector(0.0f, (GetWorld()->GetDeltaSeconds() * Speed), 0.0f), Scale);
 }
