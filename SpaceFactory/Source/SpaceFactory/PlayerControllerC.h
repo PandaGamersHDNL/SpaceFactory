@@ -7,7 +7,7 @@
 #include "PlayerControllerC.generated.h"
 
 /**
- * 
+ *
  */
 
 class ABuilderPawn;
@@ -16,18 +16,15 @@ UCLASS()
 class SPACEFACTORY_API APlayerControllerC : public APlayerController
 {
 	GENERATED_BODY()
-	
-public:
-	
-	
 
+public:
 	//APlayerControllerC();
 
 	void Tick(float DeltaTime) override;
 
 	UPROPERTY(BlueprintReadWrite)
-	bool isInBuildMode = false;
-	
+		bool isInBuildMode = false;
+
 	//height of the new building
 	UPROPERTY(EditAnywhere)
 		float BuildHeight = 100.0f;
