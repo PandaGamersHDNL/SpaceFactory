@@ -41,14 +41,26 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 		ABuilderPawn* BuilderPawn;
 
-	//height of the builder pawn
-	float BuilderHeight = 500.0f;
-
+	//builder
 	UFUNCTION(BlueprintImplementableEvent)
 		void BuildingMenu(bool IsInBuildingMode);
 
 	void BuildModeActivate();
+	//height of the builder pawn
+	UPROPERTY(EditDefaultsOnly, Category = "Builder")
+	float BuilderHeight = 500.0f;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly, Category = "Builder")
 		TSubclassOf<ABuilderPawn> BuildingBp = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Builder")
+		float BuilderAngle = -30.0f;
+
+	void BuildMachine();
+	void RotateMachine(float Scale);
+
+	float MachineRotationSpeed = 5.0f;
+	//--------
 };
+
+

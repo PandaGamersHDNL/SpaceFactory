@@ -7,7 +7,8 @@ void APlayerControllerC::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 	InputComponent->BindAction("BuildMode", IE_Pressed, this, &APlayerControllerC::BuildModeActivate);
-	UE_LOG(LogTemp, Warning, TEXT("bind activate"));
+	InputComponent->BindAction("BuildMachine", IE_Pressed, this, &APlayerControllerC::BuildMachine); //move to builder pawn maybe
+	InputComponent->BindAxis("RotateMachine", this, &APlayerControllerC::RotateMachine);
 }
 
 void APlayerControllerC::BeginPlay()
@@ -18,7 +19,8 @@ void APlayerControllerC::BeginPlay()
 	Params.Name = TEXT("Builder");
 	if (BuildingBp)
 	{
-		BuilderPawn = GetWorld()->SpawnActor<ABuilderPawn>(BuildingBp.Get(), FVector(0.0f, 0.0f, BuilderHeight), FRotator(0.0f), Params); //FVector(0.0f, 0.0f, BuilderHeight), FRotator(0.0f), Params
+		SetControlRotation(FRotator(0.0f));
+		BuilderPawn = GetWorld()->SpawnActor<ABuilderPawn>(BuildingBp.Get(), FVector(0.0f, 0.0f, BuilderHeight), FRotator(BuilderAngle, 0.0f, 0.0f), Params); 
 	}
 	else
 	{
@@ -60,5 +62,22 @@ void APlayerControllerC::BuildModeActivate()
 			UE_LOG(LogTemp, Warning, TEXT("Possesed player"));
 		}
 		BuildingMenu(isInBuildMode);
+	}
+}
+
+void APlayerControllerC::BuildMachine()
+{
+	if (MachineBuilding)
+	{
+		MachineBuilding = nullptr;
+	}
+}
+
+void APlayerControllerC::RotateMachine(float Scale)
+{
+	if (MachineBuilding)
+	{
+		MachineBuilding->SetActorRotation(FRotator(0.0f, MachineBuilding->GetActorRotation().Yaw + (MachineRotationSpeed * Scale), 0.0f));
+		UE_LOG(LogTemp, Warning, TEXT("%f, %s"), Scale, *MachineBuilding->GetName());
 	}
 }
