@@ -60,6 +60,8 @@ public:
 	void RotateMachine(float Scale);
 
 	float MachineRotationSpeed = 5.0f;
+
+	int SplinePoint = 0;
 	//--------
 };
 

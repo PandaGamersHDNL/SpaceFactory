@@ -19,13 +19,25 @@ public:
 	// Sets default values for this actor's properties
 	APneumaticTube();
 
+	bool OnInputHopper = false;
+	bool OnOutputHopper = false; //is input for tube
+
+	UPROPERTY(VisibleAnywhere)
+	USplineComponent* Spline;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY()
-	USplineComponent* Spline;
 	
+
+	UPROPERTY(VisibleAnywhere)
+	class USplineMeshComponent* Mesh;
+
+
+	/*
+	UFUNCTION()
+		void OnBeginOverlap();
+	*/
 
 public:	
 	// Called every frame
