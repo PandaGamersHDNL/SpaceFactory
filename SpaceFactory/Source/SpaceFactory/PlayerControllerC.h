@@ -25,10 +25,6 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 		bool isInBuildMode = false;
 
-	//height of the new building
-	UPROPERTY(EditAnywhere)
-		float BuildHeight = 100.0f;
-
 	UPROPERTY(BlueprintReadWrite)
 		AActor* MachineBuilding = nullptr;
 
@@ -44,6 +40,10 @@ public:
 	//builder
 	UFUNCTION(BlueprintImplementableEvent)
 		void BuildingMenu(bool IsInBuildingMode);
+
+	//height of the new building
+	UPROPERTY(EditAnywhere, Category = "Builder")
+		float BuildHeight = 100.0f;
 
 	void BuildModeActivate();
 	//height of the builder pawn
@@ -62,6 +62,12 @@ public:
 	float MachineRotationSpeed = 5.0f;
 
 	int SplinePoint = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	class ADetectorBuildTool* DetectorBT;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Builder")
+		TSubclassOf<class ADetectorBuildTool> DetectorBTBP;
 	//--------
 };
 

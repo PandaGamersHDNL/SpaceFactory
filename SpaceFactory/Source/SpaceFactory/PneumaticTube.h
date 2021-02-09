@@ -22,22 +22,21 @@ public:
 	bool OnInputHopper = false;
 	bool OnOutputHopper = false; //is input for tube
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USplineComponent* Spline;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	
-
+	UFUNCTION()
+		//void OnBeginOverlap(UPrimitiveComponent* OverlappedComp , AActor* Overlapped, AActor* Other, int32 BodyIndex, bool bSweep, FHitResult& SweepResult );
+		void OnBeginOverlap(class UPrimitiveComponent* OverlapComponent, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	UPROPERTY(VisibleAnywhere)
 	class USplineMeshComponent* Mesh;
 
-
-	/*
-	UFUNCTION()
-		void OnBeginOverlap();
-	*/
+	UPROPERTY(VisibleAnywhere)
+	USceneComponent* SceneComponent;
 
 public:	
 	// Called every frame

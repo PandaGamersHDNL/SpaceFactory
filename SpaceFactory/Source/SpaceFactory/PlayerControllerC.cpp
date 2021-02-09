@@ -1,8 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "PlayerControllerC.h"
-#include "PneumaticTube.h"
+
 #include "BuilderPawn.h"
+#include "DetectorBuildTool.h"
+#include "PneumaticTube.h"
 
 void APlayerControllerC::SetupInputComponent()
 {
@@ -34,44 +36,53 @@ void APlayerControllerC::BeginPlay()
 void APlayerControllerC::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	float MouseX, MouseY;
+	FVector Dir, Pos;
+		if (isInBuildMode)
+		{
+			if (DetectorBT)
+			{
+				GetMousePosition(MouseX, MouseY);
+				if (DeprojectScreenPositionToWorld(MouseX, MouseY, Pos, Dir))
+				{
+					DetectorBT->SetActorLocation((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir)), false);
+					UE_LOG(LogTemp, Warning, TEXT("set loc detector 1"));
+				}
+			}
+			auto PneumaticTube = Cast<APneumaticTube>(MachineBuilding);
+			if (PneumaticTube)
+			{
+				if (SplinePoint == 0)
+				{
+					GetMousePosition(MouseX, MouseY);
+					if (DeprojectScreenPositionToWorld(MouseX, MouseY, Pos, Dir))
+					{
+						PneumaticTube->SetActorLocation((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir)), false);
+						UE_LOG(LogTemp, Warning, TEXT("%s sp 0"), *FVector((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir))).ToString());
+					}
+				}
+				else
+				{
+					GetMousePosition(MouseX, MouseY);
+					if (DeprojectScreenPositionToWorld(MouseX, MouseY, Pos, Dir))
+					{
+						FVector Vector = FVector((Pos + ((BuildHeight - Pos.Z) / Dir.Z) * Dir));
+						PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, Vector, ESplineCoordinateSpace::World, true);
 
-	auto PneumaticTube = Cast<APneumaticTube>(MachineBuilding);
-	if (isInBuildMode)
-	{
-		if (PneumaticTube)
-		{
-			if (SplinePoint == 0)
+						UE_LOG(LogTemp, Warning, TEXT("%s"), *Vector.ToString());
+					}
+				}
+			}
+			else if (MachineBuilding)
 			{
-				float MouseX, MouseY;
-				FVector Dir, Pos;
 				GetMousePosition(MouseX, MouseY);
 				if (DeprojectScreenPositionToWorld(MouseX, MouseY, Pos, Dir))
 				{
-					PneumaticTube->SetActorLocation((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir)), false);
-				}
-			}
-			else
-			{
-				float MouseX, MouseY;
-				FVector Dir, Pos;
-				GetMousePosition(MouseX, MouseY);
-				if (DeprojectScreenPositionToWorld(MouseX, MouseY, Pos, Dir))
-				{
-					PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, (Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir)), ESplineCoordinateSpace::World, true);
+					MachineBuilding->SetActorLocation((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir)), false);
+					UE_LOG(LogTemp, Warning, TEXT("%s"), *FVector((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir))).ToString());
 				}
 			}
 		}
-		else if (MachineBuilding)
-		{
-			float MouseX, MouseY;
-			FVector Dir, Pos;
-			GetMousePosition(MouseX, MouseY);
-			if (DeprojectScreenPositionToWorld(MouseX, MouseY, Pos, Dir))
-			{
-				MachineBuilding->SetActorLocation((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir)), false);
-			}
-		}
-	}
 }
 
 void APlayerControllerC::BuildModeActivate()
@@ -83,13 +94,18 @@ void APlayerControllerC::BuildModeActivate()
 		{
 			Possess(BuilderPawn);
 			SetShowMouseCursor(true);
-			UE_LOG(LogTemp, Warning, TEXT("Possesed builderpawn"));
+			FActorSpawnParameters Params;
+			Params.Name = TEXT("DetectorBuilderTool");
+			if (!DetectorBT)
+			{
+				DetectorBT = GetWorld()->SpawnActor<ADetectorBuildTool>(DetectorBTBP.Get(), FVector(0.0f, 0.0f, BuilderHeight), FRotator(BuilderAngle, 0.0f, 0.0f), Params);
+				DetectorBT->SetHidden(true);
+			}
 		}
 		else
 		{
 			Possess(PlayerPawn);
 			SetShowMouseCursor(false);
-			UE_LOG(LogTemp, Warning, TEXT("Possesed player"));
 		}
 		BuildingMenu(isInBuildMode);
 	}
@@ -102,14 +118,13 @@ void APlayerControllerC::BuildMachine()
 	{
 		if (SplinePoint == 0)
 		{
-			
+			//check what it is Input or output, set the var in the tube
 		}
-		else
-		{
-		}
+		
 		SplinePoint++;
 		PneumaticTube->Spline->AddSplinePoint(FVector(0.0f),ESplineCoordinateSpace::World, true); //TODO check if the overlap is true if so don't add and stop building :D
-
+																								  //Then get the tangent and set it for the last point
+		
 	}
 	else if (MachineBuilding)
 	{
