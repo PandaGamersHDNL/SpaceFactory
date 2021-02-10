@@ -26,7 +26,7 @@ public:
 		bool isInBuildMode = false;
 
 	UPROPERTY(BlueprintReadWrite)
-		AActor* MachineBuilding = nullptr;
+		class AMachine* MachineBuilding = nullptr;
 
 	void SetupInputComponent();
 	void BeginPlay() override;

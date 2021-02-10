@@ -3,6 +3,8 @@
 #include "PlayerControllerC.h"
 
 #include "BuilderPawn.h"
+#include "HopperInput.h"
+#include "HopperOutput.h"
 #include "DetectorBuildTool.h"
 #include "PneumaticTube.h"
 
@@ -102,14 +104,14 @@ void APlayerControllerC::BuildMachine()
 	auto PneumaticTube = Cast<APneumaticTube>(MachineBuilding);
 	if (PneumaticTube)
 	{
-		if (bOutputHFirst)
+		if (bOutputHFirst ) // make this to int so you have a start  state and a decion state  -> 0 not defined 1 output first 2 input first ->ENUM?
 		{
 			if (HopperOutput)
 			{
 				if (SplinePoint == 0)
 				{
-					//stop setting location of pneaumatic tube spline point instead
-					//set it to the location of the output hopper
+					//stop setting location of pneaumatic tube spline point instead // might already happen in TICK
+					//set it to the location of the output hopper also tangent from dir of hopper "ARROW"
 				}
 				else
 				{
@@ -119,12 +121,38 @@ void APlayerControllerC::BuildMachine()
 						//set location of spline point to Hopper input Location
 						//set all the references inside of the pneaumatic tube and hoppers
 					}
+					else
+					{
+						SplinePoint++;
+						PneumaticTube->Spline->AddSplinePoint(FVector(0.0f), ESplineCoordinateSpace::World, true);
+					}
 				}
 			}
 		}
 		else
 		{
-
+			if (HopperInput)
+			{
+				if (SplinePoint == 0)
+				{
+					//stop setting location of pneaumatic tube spline point instead // might already happen in TICK
+					//set it to the location of the output hopper also tangent from dir of hopper "ARROW"
+				}
+				else
+				{
+					if (HopperOutput)
+					{
+						//set the machine building to nullptr
+						//set location of spline point to Hopper input Location
+						//set all the references inside of the pneaumatic tube and hoppers
+					}
+					else
+					{
+						SplinePoint++;
+						PneumaticTube->Spline->AddSplinePoint(FVector(0.0f), ESplineCoordinateSpace::World, true);
+					}
+				}
+			}
 		}
 		SplinePoint++;
 		PneumaticTube->Spline->AddSplinePoint(FVector(0.0f), ESplineCoordinateSpace::World, true); //TODO check if the overlap is true if so don't add and stop building :D
