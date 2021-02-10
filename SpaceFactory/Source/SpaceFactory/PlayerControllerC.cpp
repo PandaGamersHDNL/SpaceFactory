@@ -102,9 +102,29 @@ void APlayerControllerC::BuildMachine()
 	auto PneumaticTube = Cast<APneumaticTube>(MachineBuilding);
 	if (PneumaticTube)
 	{
-		if (SplinePoint == 0)
+		if (bOutputHFirst)
 		{
-			//check what it is Input or output, set the var in the tube
+			if (HopperOutput)
+			{
+				if (SplinePoint == 0)
+				{
+					//stop setting location of pneaumatic tube spline point instead
+					//set it to the location of the output hopper
+				}
+				else
+				{
+					if (HopperInput)
+					{
+						//set the machine building to nullptr
+						//set location of spline point to Hopper input Location
+						//set all the references inside of the pneaumatic tube and hoppers
+					}
+				}
+			}
+		}
+		else
+		{
+
 		}
 		SplinePoint++;
 		PneumaticTube->Spline->AddSplinePoint(FVector(0.0f), ESplineCoordinateSpace::World, true); //TODO check if the overlap is true if so don't add and stop building :D
