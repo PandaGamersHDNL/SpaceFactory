@@ -7,15 +7,19 @@
 ADetectorBuildTool::ADetectorBuildTool()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
+	PrimaryActorTick.bCanEverTick = false;
+	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	RootComponent = Mesh;
 }
 
 // Called when the game starts or when spawned
 void ADetectorBuildTool::BeginPlay()
 {
 	Super::BeginPlay();
+	Mesh->OnComponentBeginOverlap.AddDynamic(this, &ADetectorBuildTool::BeginOverlap);
+	Mesh->OnComponentEndOverlap.AddDynamic(this, &ADetectorBuildTool::EndOverlap);
 	
+	bGenerateOverlapEventsDuringLevelStreaming = true;
 }
 
 // Called every frame
@@ -25,3 +29,12 @@ void ADetectorBuildTool::Tick(float DeltaTime)
 
 }
 
+void ADetectorBuildTool::BeginOverlap(UPrimitiveComponent* OverlapComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	UE_LOG(LogTemp, Warning, TEXT("begin"));
+}
+
+void ADetectorBuildTool::EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex)
+{
+	UE_LOG(LogTemp, Warning, TEXT("End"));
+}
