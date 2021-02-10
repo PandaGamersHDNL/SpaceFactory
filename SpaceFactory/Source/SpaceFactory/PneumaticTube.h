@@ -5,13 +5,13 @@
 
 #include "Components/SplineComponent.h"
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "Machine.h"
 
 
 #include "PneumaticTube.generated.h"
 
 UCLASS()
-class SPACEFACTORY_API APneumaticTube : public AActor
+class SPACEFACTORY_API APneumaticTube : public AMachine
 {
 	GENERATED_BODY()
 	

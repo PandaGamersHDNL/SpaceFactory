@@ -41,12 +41,12 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void BuildingMenu(bool IsInBuildingMode);
 
-	//height of the new building
+		//height of the new building
 	UPROPERTY(EditAnywhere, Category = "Builder")
 		float BuildHeight = 100.0f;
 
 	void BuildModeActivate();
-	//height of the builder pawn
+		//height of the builder pawn
 	UPROPERTY(EditDefaultsOnly, Category = "Builder")
 	float BuilderHeight = 500.0f;
 
@@ -68,6 +68,10 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Builder")
 		TSubclassOf<class ADetectorBuildTool> DetectorBTBP;
+
+	bool bOutputHFirst;
+	class AHopperOutput* HopperOutput; // output of machine input of pneumatic tube
+	class AHopperInput* HopperInput;	//reverse
 	//--------
 };
 
