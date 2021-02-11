@@ -71,7 +71,9 @@ public:
 
 	bool bOutputHFirst;
 	class AHopperOutput* HopperOutput; // output of machine input of pneumatic tube
+	bool bHopperOutput = false;
 	class AHopperInput* HopperInput;	//reverse
+	bool bHopperInput = false;
 	//--------
 };
 

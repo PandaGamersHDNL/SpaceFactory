@@ -31,4 +31,6 @@ public:
 
 	UFUNCTION()
 		void EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex);
+
+	class APlayerControllerC* PlayerController;
 };

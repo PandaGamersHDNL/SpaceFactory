@@ -53,14 +53,22 @@ void APlayerControllerC::Tick(float DeltaTime)
 		{
 			if (SplinePoint == 0)
 			{
-				PneumaticTube->SetActorLocation((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir)), false);
-				//UE_LOG(LogTemp, Warning, TEXT("%s sp 0"), *FVector((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir))).ToString());
+				if (HopperOutput)
+					PneumaticTube->SetActorLocation(HopperOutput->GetActorLocation());
+				else if (HopperInput)
+					PneumaticTube->SetActorLocation(HopperInput->GetActorLocation());
+				else
+					PneumaticTube->SetActorLocation((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir)), false);
 			}
 			else
 			{
-				FVector Vector = FVector((Pos + ((BuildHeight - Pos.Z) / Dir.Z) * Dir));
-				PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, Vector, ESplineCoordinateSpace::World, true);
-				//UE_LOG(LogTemp, Warning, TEXT("%s"), *Vector.ToString());
+				//TODO Check if the output hopper for example is already set so we don't snap to the other output actors
+				if (HopperOutput)
+					PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, HopperOutput->GetActorLocation(), ESplineCoordinateSpace::World, true);
+				else if (HopperInput)
+					PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, HopperInput->GetActorLocation(), ESplineCoordinateSpace::World, true);
+				else
+					PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, (Pos + ((BuildHeight - Pos.Z) / Dir.Z) * Dir), ESplineCoordinateSpace::World, true);
 			}
 		}
 		else if (MachineBuilding)
@@ -87,7 +95,8 @@ void APlayerControllerC::BuildModeActivate()
 			if (!DetectorBT)
 			{
 				DetectorBT = GetWorld()->SpawnActor<ADetectorBuildTool>(DetectorBTBP.Get(), FVector(0.0f, 0.0f, BuilderHeight), FRotator(BuilderAngle, 0.0f, 0.0f), Params);
-				DetectorBT->SetHidden(true);
+				//DetectorBT->SetHidden(true);
+				DetectorBT->PlayerController = this;
 			}
 		}
 		else
@@ -110,6 +119,7 @@ void APlayerControllerC::BuildMachine()
 			{
 				if (SplinePoint == 0)
 				{
+					bHopperOutput = true;
 					//stop setting location of pneaumatic tube spline point instead // might already happen in TICK
 					//set it to the location of the output hopper also tangent from dir of hopper "ARROW"
 				}
