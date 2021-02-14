@@ -69,11 +69,14 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Builder")
 		TSubclassOf<class ADetectorBuildTool> DetectorBTBP;
 
-	bool bOutputHFirst;
+	bool bOutputHFirst = true;
 	class AHopperOutput* HopperOutput; // output of machine input of pneumatic tube
 	bool bHopperOutput = false;
 	class AHopperInput* HopperInput;	//reverse
 	bool bHopperInput = false;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Builder")
+		float TangentSize = 1000.0f;
 	//--------
 };
 

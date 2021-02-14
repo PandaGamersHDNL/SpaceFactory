@@ -36,7 +36,7 @@ void ADetectorBuildTool::Tick(float DeltaTime)
 
 void ADetectorBuildTool::BeginOverlap(UPrimitiveComponent* OverlapComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("begin: %s"), *OtherActor->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("begin: %s"), *OtherActor->GetName());
 	if (Cast<AHopperInput>(OtherActor) && PlayerController->bHopperInput == false)
 	{
 		PlayerController->HopperInput = Cast<AHopperInput>(OtherActor);

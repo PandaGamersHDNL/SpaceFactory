@@ -6,6 +6,7 @@
 #include "HopperInput.h"
 #include "HopperOutput.h"
 #include "DetectorBuildTool.h"
+#include "Components/ArrowComponent.h"
 #include "PneumaticTube.h"
 
 void APlayerControllerC::SetupInputComponent()
@@ -54,30 +55,35 @@ void APlayerControllerC::Tick(float DeltaTime)
 			if (SplinePoint == 0)
 			{
 				if (HopperOutput)
+				{
 					PneumaticTube->SetActorLocation(HopperOutput->GetActorLocation());
+					//PneumaticTube->Spline->SetTangentAtSplinePoint(SplinePoint, HopperOutput->GetActorForwardVector() * TangentSize, ESplineCoordinateSpace::World, true);
+				}
 				else if (HopperInput)
+				{
 					PneumaticTube->SetActorLocation(HopperInput->GetActorLocation());
+					//PneumaticTube->Spline->SetTangentAtSplinePoint(SplinePoint, HopperInput->GetActorForwardVector() * TangentSize, ESplineCoordinateSpace::World, true);
+				}
 				else
 					PneumaticTube->SetActorLocation((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir)), false);
 			}
 			else
 			{
 				//TODO Check if the output hopper for example is already set so we don't snap to the other output actors
-				if (HopperOutput)
+				if (HopperOutput && bHopperOutput == false)
 					PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, HopperOutput->GetActorLocation(), ESplineCoordinateSpace::World, true);
-				else if (HopperInput)
+				else if (HopperInput && bHopperInput == false)
 					PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, HopperInput->GetActorLocation(), ESplineCoordinateSpace::World, true);
 				else
 					PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, (Pos + ((BuildHeight - Pos.Z) / Dir.Z) * Dir), ESplineCoordinateSpace::World, true);
+				
 			}
 		}
 		else if (MachineBuilding)
 		{
-
 			MachineBuilding->SetActorLocation((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir)), false);
-			UE_LOG(LogTemp, Warning, TEXT("%s"), *FVector((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir))).ToString());
-
 		}
+		//UE_LOG(LogTemp, Warning, TEXT("%i"), SplinePoint);
 	}
 }
 
@@ -113,20 +119,26 @@ void APlayerControllerC::BuildMachine()
 	auto PneumaticTube = Cast<APneumaticTube>(MachineBuilding);
 	if (PneumaticTube)
 	{
-		if (bOutputHFirst ) // make this to int so you have a start  state and a decion state  -> 0 not defined 1 output first 2 input first ->ENUM?
+		if (bOutputHFirst) // make this to int so you have a start  state and a decion state  -> 0 not defined 1 output first 2 input first ->ENUM?
 		{
 			if (HopperOutput)
 			{
 				if (SplinePoint == 0)
 				{
 					bHopperOutput = true;
+					UE_LOG(LogTemp, Warning, TEXT("hopper output set no more to null"))
+					//add an extra spline point for a good connection
+					//SplinePoint++;
+					//PneumaticTube->Spline->AddSplinePoint(FVector(0.0f), ESplineCoordinateSpace::World, true);
 					//stop setting location of pneaumatic tube spline point instead // might already happen in TICK
 					//set it to the location of the output hopper also tangent from dir of hopper "ARROW"
 				}
-				else
+				//else
 				{
 					if (HopperInput)
 					{
+						bHopperInput = true;
+						MachineBuilding = nullptr;
 						//set the machine building to nullptr
 						//set location of spline point to Hopper input Location
 						//set all the references inside of the pneaumatic tube and hoppers
@@ -145,6 +157,8 @@ void APlayerControllerC::BuildMachine()
 			{
 				if (SplinePoint == 0)
 				{
+					bHopperInput = true;
+					//PneumaticTube->Spline->SetTangentAtSplinePoint(SplinePoint, HopperInput->GetActorForwardVector() * TangentSize ,ESplineCoordinateSpace::World,true);
 					//stop setting location of pneaumatic tube spline point instead // might already happen in TICK
 					//set it to the location of the output hopper also tangent from dir of hopper "ARROW"
 				}
@@ -164,8 +178,8 @@ void APlayerControllerC::BuildMachine()
 				}
 			}
 		}
-		SplinePoint++;
-		PneumaticTube->Spline->AddSplinePoint(FVector(0.0f), ESplineCoordinateSpace::World, true); //TODO check if the overlap is true if so don't add and stop building :D
+		//SplinePoint++;
+		//PneumaticTube->Spline->AddSplinePoint(FVector(0.0f), ESplineCoordinateSpace::World, true); //TODO check if the overlap is true if so don't add and stop building :D
 																								  //Then get the tangent and set it for the last point
 	}
 	else if (MachineBuilding)
