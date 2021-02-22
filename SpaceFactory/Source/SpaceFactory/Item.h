@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/StaticMesh.h"
 #include "GameFramework/Actor.h"
+#include "TiersEnum.h"
 #include "Item.generated.h"
 
 UCLASS()
@@ -19,9 +20,19 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Parameters")
-		UStaticMesh* ItemCapsule;
+		UStaticMeshComponent* ItemCapsuleComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
+		UStaticMeshComponent* ItemInCapsule;
+
+	UPROPERTY(EditDefaultsOnly)
+	TEnumAsByte<ETiers> Tier;
+
+	UStaticMesh* ItemCapsuleMesh = nullptr;
 	
+
 	
 	
 	

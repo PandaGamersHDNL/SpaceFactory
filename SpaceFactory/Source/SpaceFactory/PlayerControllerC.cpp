@@ -44,10 +44,10 @@ void APlayerControllerC::Tick(float DeltaTime)
 	GetMousePosition(MouseX, MouseY);
 	if (isInBuildMode && DeprojectScreenPositionToWorld(MouseX, MouseY, Pos, Dir))
 	{
+		FVector BuildVector = (Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir));
 		if (DetectorBT)
 		{
-			DetectorBT->SetActorLocation((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir)), false);
-			//UE_LOG(LogTemp, Warning, TEXT("set loc detector 1"));
+			DetectorBT->SetActorLocation(BuildVector, false);
 		}
 		auto PneumaticTube = Cast<APneumaticTube>(MachineBuilding);
 		if (PneumaticTube)
@@ -56,32 +56,37 @@ void APlayerControllerC::Tick(float DeltaTime)
 			{
 				if (HopperOutput)
 				{
-					PneumaticTube->SetActorLocation(HopperOutput->GetActorLocation());
+					PneumaticTube->SetActorLocation(HopperOutput->GetActorLocation() /*+ HopperOutput->GetActorForwardVector() * SecondSplinePointDistance*/);
 					//PneumaticTube->Spline->SetTangentAtSplinePoint(SplinePoint, HopperOutput->GetActorForwardVector() * TangentSize, ESplineCoordinateSpace::World, true);
 				}
 				else if (HopperInput)
 				{
-					PneumaticTube->SetActorLocation(HopperInput->GetActorLocation());
+					PneumaticTube->SetActorLocation(HopperInput->GetActorLocation() /*+ HopperInput->GetActorForwardVector() * SecondSplinePointDistance*/);
 					//PneumaticTube->Spline->SetTangentAtSplinePoint(SplinePoint, HopperInput->GetActorForwardVector() * TangentSize, ESplineCoordinateSpace::World, true);
 				}
 				else
-					PneumaticTube->SetActorLocation((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir)), false);
+					PneumaticTube->SetActorLocation(BuildVector, false, nullptr, ETeleportType::TeleportPhysics);
 			}
 			else
 			{
 				//TODO Check if the output hopper for example is already set so we don't snap to the other output actors
 				if (HopperOutput && bHopperOutput == false)
+				{
 					PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, HopperOutput->GetActorLocation(), ESplineCoordinateSpace::World, true);
+				}
 				else if (HopperInput && bHopperInput == false)
+				{
 					PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, HopperInput->GetActorLocation(), ESplineCoordinateSpace::World, true);
+				}
 				else
-					PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, (Pos + ((BuildHeight - Pos.Z) / Dir.Z) * Dir), ESplineCoordinateSpace::World, true);
-				
+				{
+					PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, BuildVector, ESplineCoordinateSpace::World, true);
+				}
 			}
 		}
 		else if (MachineBuilding)
 		{
-			MachineBuilding->SetActorLocation((Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir)), false);
+			MachineBuilding->SetActorLocation(BuildVector, false);
 		}
 		//UE_LOG(LogTemp, Warning, TEXT("%i"), SplinePoint);
 	}
@@ -126,9 +131,11 @@ void APlayerControllerC::BuildMachine()
 				if (SplinePoint == 0)
 				{
 					bHopperOutput = true;
-					UE_LOG(LogTemp, Warning, TEXT("hopper output set no more to null"))
+					/*SplinePoint++;
+					PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, (HopperOutput->GetActorForwardVector() * SecondSplinePointDistance), ESplineCoordinateSpace::World, true);
+					PneumaticTube->Spline->AddSplinePoint(FVector(0.0f), ESplineCoordinateSpace::Local, true);*/
 					//add an extra spline point for a good connection
-					//SplinePoint++;
+
 					//PneumaticTube->Spline->AddSplinePoint(FVector(0.0f), ESplineCoordinateSpace::World, true);
 					//stop setting location of pneaumatic tube spline point instead // might already happen in TICK
 					//set it to the location of the output hopper also tangent from dir of hopper "ARROW"
@@ -138,6 +145,8 @@ void APlayerControllerC::BuildMachine()
 					if (HopperInput)
 					{
 						bHopperInput = true;
+						PneumaticTube->Spline->SetTangentAtSplinePoint(SplinePoint, HopperOutput->GetActorForwardVector() * TangentSize, ESplineCoordinateSpace::World, true);
+						PneumaticTube->Spline->SetTangentAtSplinePoint(SplinePoint, HopperInput->GetActorForwardVector() * -TangentSize, ESplineCoordinateSpace::World, true);
 						MachineBuilding = nullptr;
 						//set the machine building to nullptr
 						//set location of spline point to Hopper input Location

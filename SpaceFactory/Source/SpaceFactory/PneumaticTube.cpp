@@ -7,38 +7,28 @@
 APneumaticTube::APneumaticTube()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
+
 	/*SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Scene"));
 	SceneComponent->SetMobility(EComponentMobility::Static);*/
 
 	Spline = CreateDefaultSubobject<USplineComponent>(TEXT("Spline"));
-	Spline->AddSplinePoint(FVector(0.0f), ESplineCoordinateSpace::Local, true);
 	Spline->SetMobility(EComponentMobility::Movable);
-	//Spline->SetupAttachment(RootComponent);
+	Spline->SetLocationAtSplinePoint(0, FVector(0.0f), ESplineCoordinateSpace::Local, true);
+	Spline->SetLocationAtSplinePoint(1, FVector(10.0f, 0.0f, 0.0f), ESplineCoordinateSpace::Local, true);
+	UE_LOG(LogTemp, Warning, TEXT("%i"), Spline->GetNumberOfSplinePoints());
 	RootComponent = Spline;
 	Spline->bDrawDebug = true;
 	Spline->SetVisibility(true);
-
 	bGenerateOverlapEventsDuringLevelStreaming = true;
-	
-	//Mesh = CreateDefaultSubobject<USplineMeshComponent>(TEXT("Mesh"));
-	/*Mesh->SetupAttachment(SceneComponent);
-	Mesh->SetRelativeLocation(FVector(0.0f));
-	Mesh->SetRelativeScale3D(FVector(0.0f));*/
-	
-
-	UE_LOG(LogTemp, Warning, TEXT("constructor ran"));
 }
 
 // Called when the game starts or when spawned
 void APneumaticTube::BeginPlay()
 {
 	Super::BeginPlay();
-	//OnActorBeginOverlap.AddDynamic(this, &APneumaticTube::OnBeginOverlap);
 	Spline->OnComponentBeginOverlap.AddDynamic(this, &APneumaticTube::OnBeginOverlap);
-	//OnActorBeginOverlap.DynamicAdd(this, APneumaticTube::OnOverlap)
 }
-
 
 // Called every frame
 void APneumaticTube::Tick(float DeltaTime)

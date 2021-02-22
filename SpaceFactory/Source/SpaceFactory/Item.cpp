@@ -1,14 +1,28 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "Item.h"
+#include "UObject/ConstructorHelpers.h"
+
+#define ItemCapsulePATH "StaticMesh'/Game/Items/Capsule.Capsule'"
 
 // Sets default values
 AItem::AItem()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	//ItemCapsule = CreateDefaultSubobject<UStaticMesh>(TEXT("ItemCapsule"));
+	ItemCapsuleComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemCapsule"));
+
+	RootComponent = ItemCapsuleComponent;
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> ItemCapsule(TEXT(ItemCapsulePATH));
+
+	if (ItemCapsule.Succeeded())
+	{
+		ItemCapsuleMesh = ItemCapsule.Object;
+		ItemCapsuleComponent->SetStaticMesh(ItemCapsuleMesh);
+	}
+
+	ItemInCapsule = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent"));
+	ItemInCapsule->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned

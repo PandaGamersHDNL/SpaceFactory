@@ -25,7 +25,7 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 		bool isInBuildMode = false;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		class AMachine* MachineBuilding = nullptr;
 
 	void SetupInputComponent();
@@ -77,6 +77,9 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Builder")
 		float TangentSize = 1000.0f;
+
+	UPROPERTY(EditDefaultsOnly)
+		float SecondSplinePointDistance = 100.0f;
 	//--------
 };
 

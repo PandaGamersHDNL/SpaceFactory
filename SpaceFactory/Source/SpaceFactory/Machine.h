@@ -6,6 +6,10 @@
 #include "GameFramework/Actor.h"
 #include "Machine.generated.h"
 
+enum Tiers {
+	Tier0, Tier1
+};
+
 UCLASS()
 class SPACEFACTORY_API AMachine : public AActor
 {
