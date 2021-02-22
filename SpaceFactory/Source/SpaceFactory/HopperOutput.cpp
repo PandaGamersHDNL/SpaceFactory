@@ -25,3 +25,8 @@ void AHopperOutput::Tick(float DeltaTime)
 
 }
 
+void AHopperOutput::OutputItem()
+{
+	//talk to the pneumatic tube 
+}
+

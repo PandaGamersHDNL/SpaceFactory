@@ -4,7 +4,7 @@
 
 
 UENUM()
-enum ETiers
+enum class ETiers
 {
 	Tier0 UMETA(DisplayName = "Tier 0"),
 	Tier1 UMETA(DisplayName = "Tier 1")

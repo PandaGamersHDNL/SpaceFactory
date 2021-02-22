@@ -23,6 +23,7 @@ AItem::AItem()
 
 	ItemInCapsule = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent"));
 	ItemInCapsule->SetupAttachment(RootComponent);
+	SetActorScale3D(FVector(.15f));
 }
 
 // Called when the game starts or when spawned

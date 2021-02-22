@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "PneumaticTube.h"
+#include "Item.h"
 #include "Components/SplineMeshComponent.h"
 
 // Sets default values
@@ -34,9 +35,27 @@ void APneumaticTube::BeginPlay()
 void APneumaticTube::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	MoveItem(DeltaTime);
 }
 
 void APneumaticTube::OnBeginOverlap( UPrimitiveComponent* OverlapComponent,  AActor* OtherActor,  UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	UE_LOG(LogTemp, Warning, TEXT("begin overlap"));
+}
+
+void APneumaticTube::MoveItem(float DeltaTime)
+{
+	if (TrasportingItem)
+	{
+		TrasportingItem->SetActorLocation(Spline->GetLocationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::World), false);
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *Spline->GetLocationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::World).ToString());
+		ItemDistance += (DeltaTime * TransportSpeed);
+	}
+
+	if (Spline->GetSplineLength() - 50.0f < ItemDistance)
+	{
+		TrasportingItem = nullptr;
+		ItemDistance = 0;
+		//call the inputhopper to add to input
+	}
 }

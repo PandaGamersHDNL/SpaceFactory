@@ -15,6 +15,12 @@ public:
 	// Sets default values for this actor's properties
 	AHopperOutput();
 
+	UPROPERTY(EditAnywhere)
+		class AProcessMachine* Machine;
+
+	UPROPERTY(EditAnywhere)
+		class APneumaticTube* PneumaticTube;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -22,5 +28,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	void OutputItem();
 
 };

@@ -13,5 +13,11 @@ UCLASS()
 class SPACEFACTORY_API AHopperInput : public AMachine
 {
 	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere)
+		class AProcessMachine* Machine;
+
+	UPROPERTY(EditAnywhere)
+		class APneumaticTube* PneumaticTube;
 	
 };

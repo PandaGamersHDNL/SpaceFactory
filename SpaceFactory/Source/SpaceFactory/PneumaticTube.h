@@ -42,4 +42,16 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+
+	//Item Transport	only for 1 item per pneumatic tube
+	UPROPERTY(EditAnywhere)
+	class AItem* TrasportingItem;
+
+	void MoveItem(float DeltaTime);
+
+	float ItemDistance = 0.0f;
+
+	UPROPERTY(EditDefaultsOnly)
+	float TransportSpeed = 20.0f;
+
 };

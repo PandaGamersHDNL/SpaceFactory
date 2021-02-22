@@ -3,17 +3,33 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Machine.h"
+#include "ProcessMachine.h"
 #include "BuyMachine.generated.h"
 
 /**
  * 
- */
+ */	
 UCLASS()
-class SPACEFACTORY_API ABuyMachine : public AMachine
+class SPACEFACTORY_API ABuyMachine : public AProcessMachine
 {
 	GENERATED_BODY()
 
+public:
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<class AItem> SpawnClass;
+
 	UPROPERTY(EditAnywhere)
 		class AHopperOutput* HopperOutput;
+	
+	UPROPERTY(EditAnywhere)
+		class AItem* SpawnedItem;
+
+
+	virtual void BeginPlay() override;
+
+	void SpawnItem();
+
+
+
+	FTimerHandle TimerHandle;
 };
