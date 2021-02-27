@@ -15,7 +15,10 @@ void ABuyMachine::BeginPlay()
 
 void ABuyMachine::SpawnItem()
 {
-	FActorSpawnParameters Params;
-	GetWorld()->SpawnActor<AItem>(SpawnClass.Get(), FVector(GetActorLocation()), FRotator(GetActorRotation()), Params);
-
+	if (!SpawnedItem)
+	{
+		FActorSpawnParameters Params;
+		SpawnedItem = GetWorld()->SpawnActor<AItem>(SpawnClass.Get(), FVector(GetActorLocation()), FRotator(GetActorRotation()), Params);
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *SpawnedItem->GetName())
+	} 
 }

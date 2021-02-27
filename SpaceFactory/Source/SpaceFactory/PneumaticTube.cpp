@@ -50,6 +50,8 @@ void APneumaticTube::MoveItem(float DeltaTime)
 		TrasportingItem->SetActorLocation(Spline->GetLocationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::World), false);
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *Spline->GetLocationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::World).ToString());
 		ItemDistance += (DeltaTime * TransportSpeed);
+		FRotator rotation = Spline->GetRotationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::World);
+		TrasportingItem->SetActorRotation(FRotator(rotation.Pitch,rotation.Yaw + 90.0f, rotation.Roll));
 	}
 
 	if (Spline->GetSplineLength() - 50.0f < ItemDistance)

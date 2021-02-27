@@ -54,4 +54,6 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	float TransportSpeed = 20.0f;
 
+
+
 };

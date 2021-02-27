@@ -58,6 +58,8 @@ public:
 
 	void BuildMachine();
 	void RotateMachine(float Scale);
+	UFUNCTION(BlueprintCallable)
+	void CreateMachine(TSubclassOf<AMachine> MachineClass);
 
 	float MachineRotationSpeed = 5.0f;
 

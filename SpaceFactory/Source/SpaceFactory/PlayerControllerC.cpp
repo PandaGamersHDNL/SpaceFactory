@@ -207,3 +207,12 @@ void APlayerControllerC::RotateMachine(float Scale)
 		MachineBuilding->SetActorRotation(FRotator(0.0f, MachineBuilding->GetActorRotation().Yaw + (MachineRotationSpeed * Scale), 0.0f));
 	}
 }
+
+void APlayerControllerC::CreateMachine(TSubclassOf<AMachine> MachineClass)
+{
+	if (!MachineBuilding)
+	{
+		FActorSpawnParameters Params;
+		MachineBuilding = GetWorld()->SpawnActor<AMachine>(MachineClass.Get(), FVector(0.0f, 0.0f, BuilderHeight), FRotator(0, 0.0f, 0.0f), Params);
+	}
+}
