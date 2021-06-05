@@ -3,13 +3,13 @@
 #include "Item.h"
 #include "UObject/ConstructorHelpers.h"
 
-#define ItemCapsulePATH "StaticMesh'/Game/Items/Capsule.Capsule'"
+#define ItemCapsulePATH "StaticMesh'/Game/Items/capsule.capsule'"
 
 // Sets default values
 AItem::AItem()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 	ItemCapsuleComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemCapsule"));
 
 	RootComponent = ItemCapsuleComponent;

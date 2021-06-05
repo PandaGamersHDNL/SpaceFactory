@@ -10,6 +10,8 @@ enum Tiers {
 	Tier0, Tier1
 };
 
+class AItem;
+
 UCLASS()
 class SPACEFACTORY_API AMachine : public AActor
 {
@@ -26,5 +28,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	AItem* OutputItem; //output no buffer
 
 };

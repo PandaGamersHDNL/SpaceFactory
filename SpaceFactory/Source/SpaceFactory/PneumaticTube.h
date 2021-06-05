@@ -45,7 +45,7 @@ public:
 
 	//Item Transport	only for 1 item per pneumatic tube
 	UPROPERTY(EditAnywhere)
-	class AItem* TrasportingItem;
+	class AItem* TransportingItem;
 
 	void MoveItem(float DeltaTime);
 

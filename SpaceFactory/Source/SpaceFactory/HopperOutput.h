@@ -6,6 +6,8 @@
 #include "Machine.h"
 #include "HopperOutput.generated.h"
 
+class APneumaticTube;
+
 UCLASS()
 class SPACEFACTORY_API AHopperOutput : public AMachine
 {
@@ -16,10 +18,14 @@ public:
 	AHopperOutput();
 
 	UPROPERTY(EditAnywhere)
-		class AProcessMachine* Machine;
+		class AMachine* Machine;
 
 	UPROPERTY(EditAnywhere)
 		class APneumaticTube* PneumaticTube;
+
+	//the value where it is concidered at the end of the tube
+	UPROPERTY(EditAnywhere)
+		float endDistance = 25.0f;
 
 protected:
 	// Called when the game starts or when spawned

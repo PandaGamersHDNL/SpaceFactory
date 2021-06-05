@@ -45,18 +45,19 @@ void APneumaticTube::OnBeginOverlap( UPrimitiveComponent* OverlapComponent,  AAc
 
 void APneumaticTube::MoveItem(float DeltaTime)
 {
-	if (TrasportingItem)
+	if (TransportingItem)
 	{
-		TrasportingItem->SetActorLocation(Spline->GetLocationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::World), false);
-		UE_LOG(LogTemp, Warning, TEXT("%s"), *Spline->GetLocationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::World).ToString());
+		TransportingItem->SetActorLocation(Spline->GetLocationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::World), false);
+		UE_LOG(LogTemp, Warning, TEXT("moving %s"), *Spline->GetLocationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::World).ToString());
 		ItemDistance += (DeltaTime * TransportSpeed);
-		FRotator rotation = Spline->GetRotationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::World);
-		TrasportingItem->SetActorRotation(FRotator(rotation.Pitch,rotation.Yaw + 90.0f, rotation.Roll));
+		FRotator rotation = Spline->GetRotationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::Local);
+		UE_LOG(LogTemp, Warning, TEXT("rotation at item distance %s"), *rotation.ToString());
+		TransportingItem->SetActorRotation(rotation);
 	}
 
 	if (Spline->GetSplineLength() - 50.0f < ItemDistance)
 	{
-		TrasportingItem = nullptr;
+		TransportingItem = nullptr;
 		ItemDistance = 0;
 		//call the inputhopper to add to input
 	}

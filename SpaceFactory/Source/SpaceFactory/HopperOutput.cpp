@@ -2,6 +2,8 @@
 
 
 #include "HopperOutput.h"
+#include "PneumaticTube.h"
+#include "Machine.h"
 
 // Sets default values
 AHopperOutput::AHopperOutput()
@@ -22,11 +24,20 @@ void AHopperOutput::BeginPlay()
 void AHopperOutput::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	OutputItem();
 }
 
 void AHopperOutput::OutputItem()
 {
-	//talk to the pneumatic tube 
+	if (!PneumaticTube || !Machine)
+		return; //null ptr prot
+
+	if (PneumaticTube->TransportingItem)
+		return; //tube busy
+	if (!Machine->OutputItem)
+		return; //no item
+	PneumaticTube->TransportingItem = Machine->OutputItem;
+	Machine->OutputItem = nullptr;
+	
 }
 

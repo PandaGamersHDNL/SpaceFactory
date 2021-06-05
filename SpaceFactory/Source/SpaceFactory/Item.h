@@ -27,15 +27,13 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
 		UStaticMeshComponent* ItemInCapsule;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditAnywhere)
 	TEnumAsByte<ETiers> Tier;
 
 	UStaticMesh* ItemCapsuleMesh = nullptr;
 	
+	int amount = 1;
 
-	
-	
-	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
