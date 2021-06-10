@@ -148,9 +148,7 @@ void APlayerControllerC::BuildMachine()
 						PneumaticTube->Spline->SetTangentAtSplinePoint(SplinePoint, HopperOutput->GetActorForwardVector() * TangentSize, ESplineCoordinateSpace::World, true);
 						PneumaticTube->Spline->SetTangentAtSplinePoint(SplinePoint, HopperInput->GetActorForwardVector() * -TangentSize, ESplineCoordinateSpace::World, true);
 						HopperOutput->PneumaticTube = PneumaticTube;
-
 						MachineBuilding = nullptr;
-						//set the machine building to nullptr
 						//set location of spline point to Hopper input Location
 						//set all the references inside of the pneaumatic tube and hoppers
 

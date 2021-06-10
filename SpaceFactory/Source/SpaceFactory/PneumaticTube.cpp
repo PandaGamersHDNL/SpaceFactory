@@ -38,25 +38,27 @@ void APneumaticTube::Tick(float DeltaTime)
 	MoveItem(DeltaTime);
 }
 
-void APneumaticTube::OnBeginOverlap( UPrimitiveComponent* OverlapComponent,  AActor* OtherActor,  UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void APneumaticTube::OnBeginOverlap(UPrimitiveComponent *OverlapComponent, AActor *OtherActor, UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
 {
 	UE_LOG(LogTemp, Warning, TEXT("begin overlap"));
 }
 
 void APneumaticTube::MoveItem(float DeltaTime)
 {
-	if (TransportingItem)
+	if (!TransportingItem)
 	{
-		TransportingItem->SetActorLocation(Spline->GetLocationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::World), false);
-		//UE_LOG(LogTemp, Warning, TEXT("moving %s"), *Spline->GetLocationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::World).ToString());
-		ItemDistance += (DeltaTime * TransportSpeed);
-		FRotator rotation = Spline->GetRotationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::Local);
-		//UE_LOG(LogTemp, Warning, TEXT("rotation at item distance %s"), *rotation.ToString());
-		TransportingItem->SetActorRotation(rotation);
+		return;
 	}
+	ItemDistance += (DeltaTime * TransportSpeed);
+	TransportingItem->SetActorLocation(Spline->GetLocationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::World), false);
+	FRotator rotation = Spline->GetRotationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::Local);
+	//UE_LOG(LogTemp, Warning, TEXT("rotation at item distance %s"), *rotation.ToString());
+	TransportingItem->SetActorRotation(rotation);
 
-	if (Spline->GetSplineLength() - 50.0f < ItemDistance)
+	if (Spline->GetSplineLength() - 10.0f < ItemDistance)
 	{
+		//put in input hopper?
+		TransportingItem->SetActorLocation(Spline->GetLocationAtDistanceAlongSpline(Spline->GetSplineLength(), ESplineCoordinateSpace::World), false);
 		TransportingItem = nullptr;
 		ItemDistance = 0;
 		//call the inputhopper to add to input
