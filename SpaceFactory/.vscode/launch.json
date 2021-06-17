@@ -117,7 +117,7 @@
 			"args": [
 				"-projectfiles",
 				"-vscode",
-				"-project=\"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\SpaceFactory.uproject\"",
+				"-project=C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\SpaceFactory.uproject",
 				"-game",
 				"-engine"
 			],
