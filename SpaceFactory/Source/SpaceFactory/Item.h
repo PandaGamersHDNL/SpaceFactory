@@ -32,10 +32,13 @@ protected:
 
 	UStaticMesh* ItemCapsuleMesh = nullptr;
 	
-	int amount = 1;
+
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(EditAnywhere)
+	float Price = 10.0f;
+	int Amount = 1;
 };

@@ -13,5 +13,9 @@ UCLASS()
 class SPACEFACTORY_API ASellMachine : public AProcessMachine
 {
 	GENERATED_BODY()
-	
+
+	ASellMachine();
+	public:
+		virtual void Tick(float DeltaTime) override;
+	class AItem* ItemToSell = nullptr;
 };

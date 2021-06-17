@@ -11,6 +11,7 @@ enum Tiers {
 };
 
 class AItem;
+class APlayerControllerC;
 
 UCLASS()
 class SPACEFACTORY_API AMachine : public AActor
@@ -29,6 +30,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	AItem* OutputItem; //output no buffer
+	AItem* OutputItem = nullptr; //output no buffer
 
+	UPROPERTY(EditAnywhere)
+		APlayerControllerC* OwnerController = nullptr;
 };

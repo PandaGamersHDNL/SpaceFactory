@@ -21,6 +21,8 @@ public:
 	//APlayerControllerC();
 
 	void Tick(float DeltaTime) override;
+	UPROPERTY(EditAnywhere)
+		float Money = 0;
 
 	UPROPERTY(BlueprintReadWrite)
 		bool isInBuildMode = false;
