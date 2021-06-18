@@ -17,6 +17,10 @@ void ASellMachine::Tick(float DeltaTime)
     //get player controller (maybe give machine object owner objects -> player who spawned it for multiplayer)
     
 	Super::Tick(DeltaTime);
+    SellItem();
+}
+
+void ASellMachine::SellItem(){
     if(OwnerController && ItemToSell){
         OwnerController->Money += ItemToSell->Price * ItemToSell->Amount; //make protected and use function?
         if(ItemToSell->Destroy())
@@ -26,6 +30,4 @@ void ASellMachine::Tick(float DeltaTime)
         }
         //UE_LOG(LogTemp, Warning, TEXT("%s"),);
     }
-    
-
 }

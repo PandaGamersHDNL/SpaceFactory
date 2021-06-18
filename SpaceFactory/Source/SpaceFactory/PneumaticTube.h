@@ -22,8 +22,12 @@ public:
 	bool OnInputHopper = false;
 	bool OnOutputHopper = false; //is input for tube
 
+	UPROPERTY(EditAnywhere)
+		class AHopperInput* HopperInput = nullptr;
+	UPROPERTY(EditAnywhere)
+		class AHopperOutput* HopperOutput = nullptr;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	USplineComponent* Spline;
+		USplineComponent* Spline;
 
 protected:
 	// Called when the game starts or when spawned
@@ -51,8 +55,8 @@ public:
 
 	float ItemDistance = 0.0f;
 
-	UPROPERTY(EditDefaultsOnly)
-	float TransportSpeed = 20.0f;
+	UPROPERTY(EditAnywhere) //TODO EditDefaultsOnly 
+	float TransportSpeed = 200.0f;
 
 
 

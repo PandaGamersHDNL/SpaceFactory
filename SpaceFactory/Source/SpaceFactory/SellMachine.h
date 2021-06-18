@@ -18,4 +18,6 @@ class SPACEFACTORY_API ASellMachine : public AProcessMachine
 	public:
 		virtual void Tick(float DeltaTime) override;
 	class AItem* ItemToSell = nullptr;
+
+	void SellItem();
 };

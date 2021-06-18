@@ -3,6 +3,8 @@
 #include "PneumaticTube.h"
 #include "Item.h"
 #include "Components/SplineMeshComponent.h"
+#include "HopperInput.h"
+#include "HopperOutput.h"
 
 // Sets default values
 APneumaticTube::APneumaticTube()
@@ -55,12 +57,14 @@ void APneumaticTube::MoveItem(float DeltaTime)
 	//UE_LOG(LogTemp, Warning, TEXT("rotation at item distance %s"), *rotation.ToString());
 	TransportingItem->SetActorRotation(rotation);
 
-	if (Spline->GetSplineLength() - 10.0f < ItemDistance)
+	if (Spline->GetSplineLength() - 10.0f < ItemDistance) //TODO make 10.0f var for editor
 	{
 		//put in input hopper?
 		TransportingItem->SetActorLocation(Spline->GetLocationAtDistanceAlongSpline(Spline->GetSplineLength(), ESplineCoordinateSpace::World), false);
-		TransportingItem = nullptr;
-		ItemDistance = 0;
+		if (HopperInput)
+		{
+			HopperInput->InputItem();
+		}
 		//call the inputhopper to add to input
 	}
 }

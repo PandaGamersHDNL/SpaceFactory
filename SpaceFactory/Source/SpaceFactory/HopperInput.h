@@ -15,9 +15,10 @@ class SPACEFACTORY_API AHopperInput : public AMachine
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere)
-		class AProcessMachine* Machine;
-
+		class AProcessMachine* Machine = nullptr;
 	UPROPERTY(EditAnywhere)
-		class APneumaticTube* PneumaticTube;
-	
+		class APneumaticTube* PneumaticTube = nullptr;
+
+	public:
+		void InputItem();
 };

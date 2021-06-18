@@ -21,8 +21,8 @@ public:
 	//APlayerControllerC();
 
 	void Tick(float DeltaTime) override;
-	UPROPERTY(EditAnywhere)
-		float Money = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		int Money = 0;
 
 	UPROPERTY(BlueprintReadWrite)
 		bool isInBuildMode = false;
@@ -34,10 +34,10 @@ public:
 	void BeginPlay() override;
 
 	UPROPERTY(BlueprintReadWrite)
-		APawn* PlayerPawn;
+		APawn* PlayerPawn = nullptr;
 
 	UPROPERTY(BlueprintReadWrite)
-		ABuilderPawn* BuilderPawn;
+		ABuilderPawn* BuilderPawn= nullptr;
 
 	//builder
 	UFUNCTION(BlueprintImplementableEvent)
@@ -71,12 +71,12 @@ public:
 	class ADetectorBuildTool* DetectorBT;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Builder")
-		TSubclassOf<class ADetectorBuildTool> DetectorBTBP;
+		TSubclassOf<class ADetectorBuildTool> DetectorBTBP= nullptr;
 
 	bool bOutputHFirst = true;
-	class AHopperOutput* HopperOutput; // output of machine input of pneumatic tube
+	class AHopperOutput* HopperOutput= nullptr; // output of machine input of pneumatic tube
 	bool bHopperOutput = false;
-	class AHopperInput* HopperInput;	//reverse
+	class AHopperInput* HopperInput= nullptr;	//reverse
 	bool bHopperInput = false;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Builder")
