@@ -6,8 +6,10 @@
 #include "GameFramework/Actor.h"
 #include "Machine.generated.h"
 
-enum Tiers {
-	Tier0, Tier1
+enum Tiers
+{
+	Tier0,
+	Tier1
 };
 
 class AItem;
@@ -17,8 +19,8 @@ UCLASS()
 class SPACEFACTORY_API AMachine : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AMachine();
 
@@ -26,12 +28,18 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	AItem* OutputItem = nullptr; //output no buffer
+	AItem *OutputItem = nullptr; //output no buffer
 
 	UPROPERTY(EditAnywhere)
-		APlayerControllerC* OwnerController = nullptr;
+	APlayerControllerC *OwnerController = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	class AHopperOutput *HopperOutput;
+
+	UPROPERTY(EditAnywhere)
+	class AHopperInput *HopperInput;
 };

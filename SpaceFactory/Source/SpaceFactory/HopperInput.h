@@ -15,10 +15,14 @@ class SPACEFACTORY_API AHopperInput : public AMachine
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere)
-		class AProcessMachine* Machine = nullptr;
+	class AProcessMachine *Machine = nullptr;
 	UPROPERTY(EditAnywhere)
-		class APneumaticTube* PneumaticTube = nullptr;
+	class APneumaticTube *PneumaticTube = nullptr;
 
-	public:
-		void InputItem();
+	UPROPERTY(EditAnywhere)
+	float DetectDistance = 150.0f;
+
+public:
+	void InputItem();
+	bool BuildSelf(class ADetectorBuildTool *BuildTool);
 };
