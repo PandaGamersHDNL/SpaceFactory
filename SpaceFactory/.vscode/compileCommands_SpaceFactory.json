@@ -50,16 +50,6 @@
 		"directory": "D:\\UE_4.26\\Engine\\Source"
 	},
 	{
-		"file": "C:\\\\Users\\\\panda\\\\Documents\\\\SpaceFactory\\\\SpaceFactory\\\\Source\\\\SpaceFactory\\\\Iron.cpp",
-		"command": "cl.exe @\"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\.vscode\\compileCommands_SpaceFactory\\SpaceFactory.182.rsp\"",
-		"directory": "D:\\UE_4.26\\Engine\\Source"
-	},
-	{
-		"file": "C:\\\\Users\\\\panda\\\\Documents\\\\SpaceFactory\\\\SpaceFactory\\\\Source\\\\SpaceFactory\\\\Iron.h",
-		"command": "cl.exe @\"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\.vscode\\compileCommands_SpaceFactory\\SpaceFactory.182.rsp\"",
-		"directory": "D:\\UE_4.26\\Engine\\Source"
-	},
-	{
 		"file": "C:\\\\Users\\\\panda\\\\Documents\\\\SpaceFactory\\\\SpaceFactory\\\\Source\\\\SpaceFactory\\\\Item.cpp",
 		"command": "cl.exe @\"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\.vscode\\compileCommands_SpaceFactory\\SpaceFactory.182.rsp\"",
 		"directory": "D:\\UE_4.26\\Engine\\Source"
@@ -70,12 +60,42 @@
 		"directory": "D:\\UE_4.26\\Engine\\Source"
 	},
 	{
+		"file": "C:\\\\Users\\\\panda\\\\Documents\\\\SpaceFactory\\\\SpaceFactory\\\\Source\\\\SpaceFactory\\\\ItemData.cpp",
+		"command": "cl.exe @\"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\.vscode\\compileCommands_SpaceFactory\\SpaceFactory.182.rsp\"",
+		"directory": "D:\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\panda\\\\Documents\\\\SpaceFactory\\\\SpaceFactory\\\\Source\\\\SpaceFactory\\\\ItemData.h",
+		"command": "cl.exe @\"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\.vscode\\compileCommands_SpaceFactory\\SpaceFactory.182.rsp\"",
+		"directory": "D:\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\panda\\\\Documents\\\\SpaceFactory\\\\SpaceFactory\\\\Source\\\\SpaceFactory\\\\itemInfo.cpp",
+		"command": "cl.exe @\"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\.vscode\\compileCommands_SpaceFactory\\SpaceFactory.182.rsp\"",
+		"directory": "D:\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\panda\\\\Documents\\\\SpaceFactory\\\\SpaceFactory\\\\Source\\\\SpaceFactory\\\\itemInfo.h",
+		"command": "cl.exe @\"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\.vscode\\compileCommands_SpaceFactory\\SpaceFactory.182.rsp\"",
+		"directory": "D:\\UE_4.26\\Engine\\Source"
+	},
+	{
 		"file": "C:\\\\Users\\\\panda\\\\Documents\\\\SpaceFactory\\\\SpaceFactory\\\\Source\\\\SpaceFactory\\\\Machine.cpp",
 		"command": "cl.exe @\"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\.vscode\\compileCommands_SpaceFactory\\SpaceFactory.182.rsp\"",
 		"directory": "D:\\UE_4.26\\Engine\\Source"
 	},
 	{
 		"file": "C:\\\\Users\\\\panda\\\\Documents\\\\SpaceFactory\\\\SpaceFactory\\\\Source\\\\SpaceFactory\\\\Machine.h",
+		"command": "cl.exe @\"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\.vscode\\compileCommands_SpaceFactory\\SpaceFactory.182.rsp\"",
+		"directory": "D:\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\panda\\\\Documents\\\\SpaceFactory\\\\SpaceFactory\\\\Source\\\\SpaceFactory\\\\MachineIO.cpp",
+		"command": "cl.exe @\"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\.vscode\\compileCommands_SpaceFactory\\SpaceFactory.182.rsp\"",
+		"directory": "D:\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\panda\\\\Documents\\\\SpaceFactory\\\\SpaceFactory\\\\Source\\\\SpaceFactory\\\\MachineIO.h",
 		"command": "cl.exe @\"C:\\Users\\panda\\Documents\\SpaceFactory\\SpaceFactory\\.vscode\\compileCommands_SpaceFactory\\SpaceFactory.182.rsp\"",
 		"directory": "D:\\UE_4.26\\Engine\\Source"
 	},

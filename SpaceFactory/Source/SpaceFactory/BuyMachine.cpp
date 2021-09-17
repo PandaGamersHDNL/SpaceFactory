@@ -8,8 +8,8 @@
 void ABuyMachine::BeginPlay()
 {
 	Super::BeginPlay();
-
-	
+	//TODO move on load
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &ABuyMachine::SpawnItem, 1.0f, true, 0.0f);
 	//GetWorldTimerManager().SetTimer<>
 }
 

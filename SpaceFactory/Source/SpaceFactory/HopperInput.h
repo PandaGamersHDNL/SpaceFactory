@@ -3,21 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Machine.h"
+#include "MachineIO.h"
 #include "HopperInput.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class SPACEFACTORY_API AHopperInput : public AMachine
+class SPACEFACTORY_API AHopperInput : public AMachineIO
 {
 	GENERATED_BODY()
-
-	UPROPERTY(EditAnywhere)
-	class AProcessMachine *Machine = nullptr;
-	UPROPERTY(EditAnywhere)
-	class APneumaticTube *PneumaticTube = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	float DetectDistance = 150.0f;

@@ -17,7 +17,12 @@ class SPACEFACTORY_API ASellMachine : public AProcessMachine
 	ASellMachine();
 	public:
 		virtual void Tick(float DeltaTime) override;
+	
+	UPROPERTY(BlueprintReadWrite)
 	class AItem* ItemToSell = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	class UDataTable* ItemTable = nullptr;
 
 	void SellItem();
 };

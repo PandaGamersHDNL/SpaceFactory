@@ -3,6 +3,7 @@
 
 #include "HopperOutput.h"
 #include "PneumaticTube.h"
+#include "ProcessMachine.h"
 #include "Machine.h"
 
 // Sets default values

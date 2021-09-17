@@ -3,6 +3,7 @@
 #include "Item.h"
 #include "UObject/ConstructorHelpers.h"
 
+
 #define ItemCapsulePATH "StaticMesh'/Game/Items/capsule.capsule'"
 
 // Sets default values
@@ -20,6 +21,8 @@ AItem::AItem()
 		ItemCapsuleMesh = ItemCapsule.Object;
 		ItemCapsuleComponent->SetStaticMesh(ItemCapsuleMesh);
 	}
+
+	//static ConstructorHelpers::FObjectFinder<U
 
 	ItemInCapsule = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent"));
 	ItemInCapsule->SetupAttachment(RootComponent);

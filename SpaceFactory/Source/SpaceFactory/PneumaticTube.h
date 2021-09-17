@@ -50,4 +50,10 @@ public:
 
 	UPROPERTY(EditAnywhere) //TODO EditDefaultsOnly
 	float TransportSpeed = 200.0f;
+
+		UPROPERTY(EditAnywhere)
+	class AHopperOutput *HopperOutput;
+
+	UPROPERTY(EditAnywhere)
+	class AHopperInput *HopperInput;
 };

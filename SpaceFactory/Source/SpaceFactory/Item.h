@@ -41,4 +41,8 @@ public:
 	UPROPERTY(EditAnywhere)
 	float Price = 10.0f;
 	int Amount = 1;
+
+	//key used for database
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FName ItemKey = FName(TEXT("default"));
 };

@@ -13,5 +13,13 @@ UCLASS()
 class SPACEFACTORY_API AProcessMachine : public AMachine
 {
 	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere)
+	class AHopperOutput *HopperOutput;
+
+	UPROPERTY(EditAnywhere)
+	class AHopperInput *HopperInput; //TODO multiple inputs
+
 	
 };

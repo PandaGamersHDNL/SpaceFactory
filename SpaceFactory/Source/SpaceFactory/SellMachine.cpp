@@ -21,8 +21,8 @@ void ASellMachine::Tick(float DeltaTime)
 }
 
 void ASellMachine::SellItem(){
-    if(OwnerController && ItemToSell){
-        OwnerController->Money += ItemToSell->Price * ItemToSell->Amount; //make protected and use function?
+    if(OwnerController && ItemTable && ItemToSell){
+        OwnerController->Money += ItemToSell->Price * ItemToSell->Amount; //make protected and use function?  
         if(ItemToSell->Destroy())
         {
             //OwnerController->Money += ItemToSell->Price * ItemToSell->Amount; //do here so we can change vars only if it is marked for destruction? TEST if works

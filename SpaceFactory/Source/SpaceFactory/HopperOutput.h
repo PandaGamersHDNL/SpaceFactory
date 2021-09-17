@@ -3,25 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Machine.h"
+#include "MachineIO.h"
 #include "HopperOutput.generated.h"
 
 class APneumaticTube;
 
 UCLASS()
-class SPACEFACTORY_API AHopperOutput : public AMachine
+class SPACEFACTORY_API AHopperOutput : public AMachineIO
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
 	AHopperOutput();
-
-	UPROPERTY(EditAnywhere)
-		class AMachine* Machine;
-
-	UPROPERTY(EditAnywhere)
-		class APneumaticTube* PneumaticTube;
 
 	//the value where it is concidered at the end of the tube
 	UPROPERTY(EditAnywhere)

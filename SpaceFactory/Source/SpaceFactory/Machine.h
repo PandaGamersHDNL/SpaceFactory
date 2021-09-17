@@ -34,12 +34,10 @@ public:
 
 	AItem *OutputItem = nullptr; //output no buffer
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	APlayerControllerC *OwnerController = nullptr;
 
-	UPROPERTY(EditAnywhere)
-	class AHopperOutput *HopperOutput;
 
-	UPROPERTY(EditAnywhere)
-	class AHopperInput *HopperInput;
+
+	
 };

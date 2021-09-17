@@ -2,19 +2,21 @@
 
 
 #include "Machine.h"
+#include "PlayerControllerC.h"
 
 // Sets default values
 AMachine::AMachine()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 // Called when the game starts or when spawned
 void AMachine::BeginPlay()
 {
 	Super::BeginPlay();
+	//GetNetOwningPlayer()->GetPlayerController()
+	OwnerController = GetWorld()->GetFirstPlayerController<APlayerControllerC>();
 	
 }
 
