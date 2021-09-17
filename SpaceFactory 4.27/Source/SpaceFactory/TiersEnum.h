@@ -2,7 +2,6 @@
 
 #pragma once
 
-
 UENUM(BlueprintType)
 enum class ETiers : uint8
 {

@@ -4,14 +4,14 @@
 
 //#include "CoreMinimal.h"
 #include "TiersEnum.h"
-//#include "Engine/UserDefinedStruct.h"
+#include "Engine/DataTable.h"
 #include "itemInfo.generated.h"
 
 /**
  * 
  */
 USTRUCT(BlueprintType)
-struct FItemInfo
+struct FItemInfo : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
 

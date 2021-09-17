@@ -27,9 +27,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
 		UStaticMeshComponent* ItemInCapsule;
 
-	UPROPERTY(EditAnywhere)
-	TEnumAsByte<ETiers> Tier;
-
 	UStaticMesh* ItemCapsuleMesh = nullptr;
 	
 
@@ -39,7 +36,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-	float Price = 10.0f;
 	int Amount = 1;
 
 	//key used for database

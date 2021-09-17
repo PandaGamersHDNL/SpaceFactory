@@ -4,6 +4,8 @@
 #include "SellMachine.h"
 #include "Item.h"
 #include "Kismet/GameplayStatics.h"
+#include "Engine/DataTable.h"
+#include "itemInfo.h"
 #include "PlayerControllerC.h"
 
 ASellMachine::ASellMachine()
@@ -22,7 +24,12 @@ void ASellMachine::Tick(float DeltaTime)
 
 void ASellMachine::SellItem(){
     if(OwnerController && ItemTable && ItemToSell){
-        OwnerController->Money += ItemToSell->Price * ItemToSell->Amount; //make protected and use function?  
+        FItemInfo* ItemData = ItemTable->FindRow<FItemInfo>(ItemToSell->ItemKey,"ItemDataSellMachine" , true);
+        if(!ItemData)  { return;
+            UE_LOG(LogTemp, Warning, TEXT("No ItemData"));
+        }
+        UE_LOG(LogTemp, Warning, TEXT("%d"), ItemData->PriceSell)
+        OwnerController->Money +=  ItemData->PriceSell * ItemToSell->Amount; //make protected and use function?  
         if(ItemToSell->Destroy())
         {
             //OwnerController->Money += ItemToSell->Price * ItemToSell->Amount; //do here so we can change vars only if it is marked for destruction? TEST if works
