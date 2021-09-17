@@ -28,7 +28,7 @@ void ASellMachine::SellItem(){
         if(!ItemData)  { return;
             UE_LOG(LogTemp, Warning, TEXT("No ItemData"));
         }
-        UE_LOG(LogTemp, Warning, TEXT("%d"), ItemData->PriceSell)
+        //UE_LOG(LogTemp, Warning, TEXT("%d"), ItemData->PriceSell)
         OwnerController->Money +=  ItemData->PriceSell * ItemToSell->Amount; //make protected and use function?  
         if(ItemToSell->Destroy())
         {

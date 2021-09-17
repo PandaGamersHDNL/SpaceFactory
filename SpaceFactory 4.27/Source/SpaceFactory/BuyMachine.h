@@ -13,13 +13,17 @@ UCLASS()
 class SPACEFACTORY_API ABuyMachine : public AProcessMachine
 {
 	GENERATED_BODY()
+private:
+	class AItem *SpawnedItem;
+	
 
 public:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class AItem> SpawnClass;
 
+
 	UPROPERTY(EditAnywhere)
-	class AItem *SpawnedItem;
+	class UDataTable* ItemTable = nullptr;
 
 	virtual void BeginPlay() override;
 

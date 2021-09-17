@@ -31,7 +31,7 @@ public:
 
 	void Tick(float DeltaTime) override;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int Money = 0;
+	int Money = 100;
 
 	UPROPERTY(BlueprintReadWrite)
 	bool isInBuildMode = false;
