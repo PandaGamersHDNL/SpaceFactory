@@ -16,7 +16,7 @@ void ABuyMachine::BeginPlay()
 
 void ABuyMachine::SpawnItem()
 {
-	if (SpawnClass && ItemTable && !OutputItem)
+	if (SpawnClass && OwnerController && ItemTable && !OutputItem)
 	{
 		if (!SpawnedItem)
 		{
@@ -24,8 +24,8 @@ void ABuyMachine::SpawnItem()
 			SpawnedItem = GetWorld()->SpawnActor<AItem>(SpawnClass.Get(), FVector(GetActorLocation()), FRotator(GetActorRotation()), Params);
 			UE_LOG(LogTemp, Warning, TEXT("Spawned"));
 		}
-			FItemInfo *ItemData = ItemTable->FindRow<FItemInfo>(SpawnedItem->ItemKey, "BuyMachineItemInfoTable", true);
-		if (SpawnedItem && OwnerController->Money >= ItemData->PriceBuy)
+		FItemInfo *ItemData = ItemTable->FindRow<FItemInfo>(SpawnedItem->ItemKey, "BuyMachineItemInfoTable", true);
+		if (SpawnedItem && ItemData && OwnerController->Money >= ItemData->PriceBuy)
 		{
 			OwnerController->Money -= ItemData->PriceBuy;
 			OutputItem = SpawnedItem;

@@ -15,33 +15,15 @@ struct FItemInfo : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MyCategory)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class AItem> Item;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MyCategory)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int PriceBuy;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MyCategory)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int PriceSell;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MyCategory)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ETiers tiers;
 };
-/*
-UCLASS(Blueprintable)
-class SPACEFACTORY_API UitemInfo : public UUserDefinedStruct
-{
-	GENERATED_BODY()
-	public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=MyCategory)
-		TSubclassOf<class AItem> Item;
-
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=MyCategory)
-		int PriceBuy;
-
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=MyCategory)
-		int PriceSell;
-
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=MyCategory)
-		class ETiers tiers;
-};*/
