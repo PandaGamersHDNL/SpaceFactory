@@ -19,14 +19,12 @@ void AMachineCrafting::Tick(float DeltaTime)
 void AMachineCrafting::setRecipe(FName row)
 {
     Recipe = RecipesDT->FindRow<FRecipe>(row, "MachineCraftingRecipeDT", true);
-    //UE_LOG(LogTemp, Display, TEXT("%s"), *Recipe->Inputs);
     ItemList.Empty();
     for (FItemAmount Input : Recipe->Inputs)
     {
         Input.Amount = 0;
         ItemList.Add(Input);
     }
-    UE_LOG(LogTemp, Warning, TEXT("%d + %d"), ItemList.Num(), Recipe->Inputs.Num());
 }
 
 void AMachineCrafting::Craft()
@@ -41,10 +39,7 @@ void AMachineCrafting::Craft()
         OutputItem = GetWorld()->SpawnActor<AItem>(Recipe->Output.Item.Get(), FVector(GetActorLocation()), FRotator(GetActorRotation()), Params);
         OutputItem->Amount = Recipe->Output.Amount;
         //WARN if spawning would fail it might crash the game
-
-        UE_LOG(LogTemp, Warning, TEXT("craft ready"));
     }
-    UE_LOG(LogTemp, Warning, TEXT("%s used craft()"), *this->GetFName().ToString());
     GetWorldTimerManager().SetTimer(Cooldown, this, &AMachineCrafting::Craft, 10.0f, false, Recipe->CraftTime);
 }
 
