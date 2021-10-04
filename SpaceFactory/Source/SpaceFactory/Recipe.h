@@ -19,8 +19,15 @@ struct FRecipe : public FTableRowBase
     TSubclassOf<class AProcessMachine> ProcessMachine;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Recipe)
-	TArray<FItemAmount> Input;
+	TArray<FItemAmount> Inputs;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Recipe)
 	FItemAmount Output;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Recipe)
+    float CraftTime;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Recipe)
+    FName Description;
+    
 };

@@ -23,20 +23,20 @@ void ASellMachine::Tick(float DeltaTime)
 
 void ASellMachine::SellItem()
 {
-    if (OwnerController && ItemTable && ItemToSell)
+    if (OwnerController && ItemTable && InputItem)
     {
-        FItemInfo *ItemData = ItemTable->FindRow<FItemInfo>(ItemToSell->ItemKey, "ItemDataSellMachine", true);
+        FItemInfo *ItemData = ItemTable->FindRow<FItemInfo>(InputItem->ItemKey, "ItemDataSellMachine", true);
         if (!ItemData)
         {
             return;
             UE_LOG(LogTemp, Warning, TEXT("No ItemData"));
         }
         //UE_LOG(LogTemp, Warning, TEXT("%d"), ItemData->PriceSell)
-        OwnerController->Money += ItemData->PriceSell * ItemToSell->Amount; //make protected and use function?
-        if (ItemToSell->Destroy())
+        OwnerController->Money += ItemData->PriceSell * InputItem->Amount; //make protected and use function?
+        if (InputItem->Destroy())
         {
-            //OwnerController->Money += ItemToSell->Price * ItemToSell->Amount; //do here so we can change vars only if it is marked for destruction? TEST if works
-            ItemToSell = nullptr;
+            //OwnerController->Money += InputItem->Price * InputItem->Amount; //do here so we can change vars only if it is marked for destruction? TEST if works
+            InputItem = nullptr;
         }
         //UE_LOG(LogTemp, Warning, TEXT("%s"),);
     }

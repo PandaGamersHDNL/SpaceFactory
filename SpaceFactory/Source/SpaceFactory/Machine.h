@@ -33,7 +33,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	AItem *OutputItem = nullptr; //output no buffer
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	AItem *InputItem = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	APlayerControllerC *OwnerController = nullptr;
 
