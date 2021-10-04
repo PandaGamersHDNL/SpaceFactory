@@ -24,7 +24,7 @@ public:
 
 	UFUNCTION()
 	void Craft();
-	
+
 	void InputToList();
 
 	UFUNCTION(BlueprintCallable)
@@ -38,12 +38,13 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	float BufferMultiplier = 5.0f;
-	
+
 	bool CheckItemAmounts();
 	void RemoveItemAmounts();
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+
 private:
-	FRecipe* Recipe;
+	FRecipe *Recipe;
 	FTimerHandle Cooldown;
 };
