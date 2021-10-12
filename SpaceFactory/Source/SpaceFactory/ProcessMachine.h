@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Machine.h"
+#include "Containers/Array.h"
 #include "ProcessMachine.generated.h"
 
 /**
@@ -19,7 +20,7 @@ public:
 	class AHopperOutput *HopperOutput;
 
 	UPROPERTY(EditAnywhere)
-	class AHopperInput *HopperInput; //TODO multiple inputs
+	TArray<class AHopperInput*> HopperInput; //TODO multiple inputs
 
 	
 };

@@ -38,7 +38,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	APlayerControllerC *OwnerController = nullptr;
 
-
+	virtual bool BuildSelf(class ADetectorBuildTool *BuildTool);
 
 	
 };

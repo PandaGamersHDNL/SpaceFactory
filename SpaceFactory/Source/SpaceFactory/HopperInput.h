@@ -14,10 +14,7 @@ class SPACEFACTORY_API AHopperInput : public AMachineIO
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere)
-	float DetectDistance = 150.0f;
-
 public:
 	void InputItem();
-	bool BuildSelf(class ADetectorBuildTool *BuildTool);
+	bool BuildSelf(class ADetectorBuildTool *BuildTool) override;
 };

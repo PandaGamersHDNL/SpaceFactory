@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Item.h"
 #include "MachineCrafting.h"
+#include "Item.h"
 
 void AMachineCrafting::BeginPlay()
 {
@@ -83,4 +83,10 @@ void AMachineCrafting::RemoveItemAmounts()
     {
         ItemIt->Amount -= Recipe->Inputs[ItemIt.GetIndex()].Amount;
     }
+}
+
+bool AMachineCrafting::BuildSelf(ADetectorBuildTool *Detector)
+{
+    UE_LOG(LogTemp, Warning, TEXT("build self machine crafting"));
+    return true;
 }

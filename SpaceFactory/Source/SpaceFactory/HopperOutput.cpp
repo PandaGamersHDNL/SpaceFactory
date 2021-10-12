@@ -4,6 +4,7 @@
 #include "HopperOutput.h"
 #include "PneumaticTube.h"
 #include "ProcessMachine.h"
+#include "DetectorBuildTool.h"
 #include "Machine.h"
 
 // Sets default values
@@ -38,7 +39,34 @@ void AHopperOutput::OutputItem()
 	if (!Machine->OutputItem)
 		return; //no item
 	PneumaticTube->TransportingItem = Machine->OutputItem;
-	Machine->OutputItem = nullptr;
-	
+	Machine->OutputItem = nullptr;	
+}
+
+bool AHopperOutput::BuildSelf(ADetectorBuildTool *BuildTool)
+{
+  FHitResult Hit;
+  FVector Start = GetActorLocation();
+  FRotator Rot = GetActorRotation();
+  auto Params = FCollisionQueryParams();
+  Params.AddIgnoredActor(this);
+  Params.AddIgnoredActor(BuildTool);
+  for (int i = 0; i < 4; i++)
+  {
+    UE_LOG(LogTemp, Warning, TEXT("end vector is %s for HopperOutput"), *(Start + (Rot.Vector() * DetectDistance)).ToString());
+    GetWorld()->LineTraceSingleByChannel(Hit, Start, Start + (Rot.Vector() * DetectDistance), ECollisionChannel::ECC_Visibility, Params);
+    if (Hit.GetActor())
+      UE_LOG(LogTemp, Warning, TEXT("hit actor: %s for HopperOutput:"), *Hit.GetActor()->GetName());
+    Rot.Yaw += 90;
+    auto HitMachine = Cast<AProcessMachine>(Hit.GetActor());
+    if (HitMachine && !HitMachine->HopperOutput)
+    {
+      UE_LOG(LogTemp, Warning, TEXT("assigned machine as: %s for HopperOutput: %s"), *HitMachine->GetName(), *GetName());
+      Machine = HitMachine;
+      HitMachine->HopperOutput = this;
+      return true;
+    }
+  }
+  UE_LOG(LogTemp, Warning, TEXT("Failed assigning a machine"));
+  return false;
 }
 

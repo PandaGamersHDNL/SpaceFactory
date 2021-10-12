@@ -11,7 +11,12 @@
 	],
 	"settings": {
 		"typescript.tsc.autoDetect": "off",
-		"UEIntellisenseFixes.cppStandard": "gnu++17"
+		"UEIntellisenseFixes.cppStandard": "gnu++17",
+		"files.associations": {
+			"bitset": "cpp",
+			"set": "cpp",
+			"__tree": "cpp"
+		}
 	},
 	"extensions": {
 		"recommendations": [

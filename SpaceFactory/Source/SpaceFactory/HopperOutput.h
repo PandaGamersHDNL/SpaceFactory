@@ -30,5 +30,5 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void OutputItem();
-
+	bool BuildSelf(class ADetectorBuildTool *BuildTool) override;
 };

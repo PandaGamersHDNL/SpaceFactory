@@ -43,7 +43,7 @@ public:
 	void RemoveItemAmounts();
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
-
+	virtual bool BuildSelf(class ADetectorBuildTool *Detector) override;
 private:
 	FRecipe *Recipe;
 	FTimerHandle Cooldown;

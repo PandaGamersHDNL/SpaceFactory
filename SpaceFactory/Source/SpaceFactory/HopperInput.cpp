@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "HopperInput.h"
 #include "Item.h"
 
 #include "PneumaticTube.h"
 #include "ProcessMachine.h"
 #include "SellMachine.h"
 #include "DetectorBuildTool.h"
-#include "HopperInput.h"
 
 void AHopperInput::InputItem()
 {
@@ -42,11 +42,11 @@ bool AHopperInput::BuildSelf(ADetectorBuildTool *BuildTool)
       UE_LOG(LogTemp, Warning, TEXT("hit actor: %s for HopperInput:"), *Hit.GetActor()->GetName());
     Rot.Yaw += 90;
     auto HitMachine = Cast<AProcessMachine>(Hit.GetActor());
-    if (HitMachine && !HitMachine->HopperInput)
+    if (HitMachine && HitMachine->HopperInput.Num() >= 0)
     {
       UE_LOG(LogTemp, Warning, TEXT("assigned machine as: %s for HopperInput: %s"), *HitMachine->GetName(), *GetName());
       Machine = HitMachine;
-      HitMachine->HopperInput = this;
+      HitMachine->HopperInput.Add(this);
       return true;
     }
   }

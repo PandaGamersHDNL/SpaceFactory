@@ -13,6 +13,9 @@ UCLASS()
 class SPACEFACTORY_API AMachineIO : public AMachine
 {
 	GENERATED_BODY()
+protected:
+	UPROPERTY(EditAnywhere)
+	float DetectDistance = 150.0f;
 
 public:
 	UPROPERTY(EditAnywhere, Category="Dynamic setup")

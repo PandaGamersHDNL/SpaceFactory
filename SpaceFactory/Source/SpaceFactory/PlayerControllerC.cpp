@@ -98,6 +98,9 @@ void APlayerControllerC::BuildMachine()
 	//TODO handle
 	if (!MachineBuilding)
 		return;
+	if(MachineBuilding->BuildSelf(DetectorBT)) {
+		MachineBuilding = nullptr;
+	};/*
 	auto PneumaticTube = Cast<APneumaticTube>(MachineBuilding);
 	if (PneumaticTube)
 	{
@@ -117,6 +120,7 @@ void APlayerControllerC::BuildMachine()
 	AHopperOutput *HopperOutputLocal = Cast<AHopperOutput>(MachineBuilding);
 	if (HopperOutputLocal)
 	{
+		if (HopperInputLocal->BuildSelf(DetectorBT))
 		return;
 	}
 	ABuyMachine *BuyMachine = Cast<ABuyMachine>(MachineBuilding);
@@ -125,7 +129,7 @@ void APlayerControllerC::BuildMachine()
 	if (MachineBuilding)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("machine set 0"));
-		MachineBuilding = nullptr;
+		
 	}
 	//Potentially use
 	/*

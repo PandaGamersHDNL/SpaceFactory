@@ -97,7 +97,4 @@ public:
 
 	void MoveSplinePoint(APneumaticTube *PneumaticTube, FVector BuildVector);
 	void BuildSpline(APneumaticTube *PneumaticTube);
-
-	//maybe
-	BuildingType BuildingType = BuildingType::Machine;
 };

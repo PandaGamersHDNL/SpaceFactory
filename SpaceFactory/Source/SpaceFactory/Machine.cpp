@@ -2,6 +2,7 @@
 
 
 #include "Machine.h"
+#include "DetectorBuildTool.h"
 #include "PlayerControllerC.h"
 
 // Sets default values
@@ -25,5 +26,11 @@ void AMachine::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+bool AMachine::BuildSelf(ADetectorBuildTool *BuildTool)
+{
+	UE_LOG(LogTemp, Warning, TEXT("BuildSelf"));
+	return true;
 }
 
