@@ -18,6 +18,7 @@ void AMachineCrafting::Tick(float DeltaTime)
 
 void AMachineCrafting::setRecipe(FName row)
 {
+    check(RecipesDT)
     Recipe = RecipesDT->FindRow<FRecipe>(row, "MachineCraftingRecipeDT", true);
     ItemList.Empty();
     for (FItemAmount Input : Recipe->Inputs)
