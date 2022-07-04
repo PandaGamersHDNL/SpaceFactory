@@ -7,11 +7,10 @@
 #include "SpaceFactoryGameModeBase.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class SPACEFACTORY_API ASpaceFactoryGameModeBase : public AGameModeBase
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
 };

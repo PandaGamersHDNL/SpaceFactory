@@ -9,28 +9,30 @@
 UCLASS()
 class SPACEFACTORY_API ADetectorBuildTool : public AActor
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-public:
-	// Sets default values for this actor's properties
-	ADetectorBuildTool();
+  public:
+    // Sets default values for this actor's properties
+    ADetectorBuildTool();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+  protected:
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
 
-public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+  public:
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(VisibleAnywhere)
-		UStaticMeshComponent* Mesh = nullptr;
+    UPROPERTY(VisibleAnywhere)
+    UStaticMeshComponent *Mesh = nullptr;
 
-	UFUNCTION()
-		void BeginOverlap(UPrimitiveComponent* OverlapComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+    UFUNCTION()
+    void BeginOverlap(UPrimitiveComponent *OverlapComponent, AActor *OtherActor, UPrimitiveComponent *OtherComp,
+                      int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
-	UFUNCTION()
-		void EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex);
+    UFUNCTION()
+    void EndOverlap(UPrimitiveComponent *OverlappedComponent, AActor *OtherActor, UPrimitiveComponent *OtherComponent,
+                    int32 OtherBodyIndex);
 
-	class APlayerControllerC* PlayerController;
+    class APlayerControllerC *PlayerController;
 };

@@ -5,19 +5,19 @@
 #include "ItemAmount.generated.h"
 
 /**
- * 
+ *
  */
 USTRUCT(BlueprintType)
 struct FItemAmount
 {
-	GENERATED_USTRUCT_BODY();
+    GENERATED_USTRUCT_BODY();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Recipe)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Recipe)
     FName ItemDisplayName = FName(TEXT("default"));
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ItemAmount)
-	TSubclassOf<class AItem> Item;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ItemAmount)
+    TSubclassOf<class AItem> Item;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ItemAmount)
-	int Amount = 1;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ItemAmount)
+    int Amount = 1;
 };
