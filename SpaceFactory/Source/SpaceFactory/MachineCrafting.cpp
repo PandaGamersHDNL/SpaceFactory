@@ -29,16 +29,17 @@ void AMachineCrafting::setRecipe(FName row)
 
 void AMachineCrafting::Craft()
 {
-    //ptr prot + cooldown
+    // ptr prot + cooldown
     if (!Recipe || !Recipe->CraftTime || GetWorldTimerManager().GetTimerRemaining(Cooldown) > 0.1f)
         return;
     if (CheckItemAmounts() && !OutputItem)
     {
         RemoveItemAmounts();
         FActorSpawnParameters Params;
-        OutputItem = GetWorld()->SpawnActor<AItem>(Recipe->Output.Item.Get(), FVector(GetActorLocation()), FRotator(GetActorRotation()), Params);
+        OutputItem = GetWorld()->SpawnActor<AItem>(Recipe->Output.Item.Get(), FVector(GetActorLocation()),
+                                                   FRotator(GetActorRotation()), Params);
         OutputItem->Amount = Recipe->Output.Amount;
-        //WARN if spawning would fail it might crash the game
+        // WARN if spawning would fail it might crash the game
     }
     GetWorldTimerManager().SetTimer(Cooldown, this, &AMachineCrafting::Craft, 10.0f, false, Recipe->CraftTime);
 }
@@ -47,7 +48,7 @@ void AMachineCrafting::InputToList()
 {
     if (!InputItem)
         return;
-    //item iterator
+    // item iterator
     for (auto ItemIt = ItemList.CreateIterator(); ItemIt; ItemIt++)
     {
         if (ItemIt->Item.Get() == InputItem->GetClass())
@@ -57,10 +58,13 @@ void AMachineCrafting::InputToList()
                 ItemIt->Amount += InputItem->Amount;
                 if (InputItem->Destroy())
                 {
+                    UE_LOG(LogTemp, Warning, TEXT("Your message %s %s"),
+                           *InputItem->GetClass()->GetDisplayNameText().ToString(),
+                           *ItemIt->Item.Get()->GetDisplayNameText().ToString());
                     InputItem = nullptr;
+                    return;
                 }
             }
-            //UE_LOG(LogTemp, Warning, TEXT("Your message %s %s"), *InputItem->GetClass()->GetDisplayNameText().ToString(), *Input.Item.Get()->GetDisplayNameText().ToString());
         }
     }
 }

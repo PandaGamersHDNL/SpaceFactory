@@ -20,7 +20,7 @@ public:
 	bool OnInputHopper = false;
 	bool OnOutputHopper = false; //is input for tube
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	USplineComponent *Spline;
 
 protected:
@@ -56,4 +56,6 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	class AHopperInput *HopperInput;
+
+	virtual bool BuildSelf(class ADetectorBuildTool *BuildTool) override;
 };

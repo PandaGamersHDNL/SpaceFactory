@@ -96,5 +96,4 @@ public:
 	//--------
 
 	void MoveSplinePoint(APneumaticTube *PneumaticTube, FVector BuildVector);
-	void BuildSpline(APneumaticTube *PneumaticTube);
 };
