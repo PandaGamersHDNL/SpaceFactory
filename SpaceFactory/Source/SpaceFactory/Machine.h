@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Blueprint/UserWidget.h"
 #include "Machine.generated.h"
 
 enum Tiers
@@ -39,4 +40,7 @@ class SPACEFACTORY_API AMachine : public AActor
     APlayerControllerC *OwnerController = nullptr;
 
     virtual bool BuildSelf(class ADetectorBuildTool *BuildTool);
+
+    UPROPERTY(EditDefaultsOnly)
+    TSubclassOf<UUserWidget> ui;
 };

@@ -63,7 +63,7 @@ void APneumaticTube::MoveItem(float DeltaTime)
         Spline->GetLocationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::World), false);
     FRotator rotation = Spline->GetRotationAtDistanceAlongSpline(ItemDistance, ESplineCoordinateSpace::Local);
     // UE_LOG(LogTemp, Warning, TEXT("rotation at item distance %s"), *rotation.ToString());
-    TransportingItem->SetActorRotation(rotation);
+    TransportingItem->SetActorRotation(rotation + this->GetActorRotation());
 
     if (Spline->GetSplineLength() - 10.0f < ItemDistance) // TODO make 10.0f var for editor
     {
@@ -82,12 +82,20 @@ bool APneumaticTube::BuildSelf(ADetectorBuildTool *BuildTool)
 {
     //  3, on click with input hopper end build cycle
     // step 1 set output hopper (input of tube)
-    if (!this->HopperOutput)
+    if (!this->HopperOutput && this->OwnerController->Overlap)
     {
-        if (this->OwnerController->HopperOutput)
+        auto outputH = Cast<AHopperOutput>(this->OwnerController->Overlap);
+        if (outputH)
         {
-            this->HopperOutput = this->OwnerController->HopperOutput;
-            this->OwnerController->SplinePoint++;
+            this->HopperOutput = outputH;
+            this->OwnerController->SplinePoint += 2;
+
+            this->Spline->SetLocationAtSplinePoint(
+                1, this->GetActorLocation() + (this->GetActorRotation().Vector() * 100.0f),
+                ESplineCoordinateSpace::World, true);
+            this->Spline->AddSplinePoint(BuildTool->GetActorLocation(),
+                                         ESplineCoordinateSpace::World, true);
+
             UE_LOG(LogTemp, Warning, TEXT("there is hopper output"));
         }
         return false;
@@ -95,7 +103,7 @@ bool APneumaticTube::BuildSelf(ADetectorBuildTool *BuildTool)
     UE_LOG(LogTemp, Warning, TEXT("hopper output set"));
 
     // step 2 add spline points
-    if (!this->OwnerController->HopperInput)
+    if (!this->OwnerController->Overlap)
     {
         UE_LOG(LogTemp, Error, TEXT("%s %d there were spline %d points"), __FILEW__, __LINE__,
                Spline->GetNumberOfSplinePoints());
@@ -105,12 +113,16 @@ bool APneumaticTube::BuildSelf(ADetectorBuildTool *BuildTool)
     else
     {
         // step 3 set input hopper
-        this->HopperInput = this->OwnerController->HopperInput;
-        // UE_LOG(LogTemp, Error, TEXT("%s %d there were spline %d points FINISHED BUILDING"),__FILEW__, __LINE__,
-        // Spline->GetNumberOfSplinePoints());
-        this->HopperInput->PneumaticTube = this;
-        this->HopperOutput->PneumaticTube = this;
-        return true;
+        auto hopperI = Cast<AHopperInput>(this->OwnerController->Overlap);
+        if (hopperI)
+        {
+            this->HopperInput = hopperI;
+            // UE_LOG(LogTemp, Error, TEXT("%s %d there were spline %d points FINISHED BUILDING"),__FILEW__, __LINE__,
+            // Spline->GetNumberOfSplinePoints());
+            this->HopperInput->PneumaticTube = this;
+            this->HopperOutput->PneumaticTube = this;
+            return true;
+        }
     }
     return false;
 }

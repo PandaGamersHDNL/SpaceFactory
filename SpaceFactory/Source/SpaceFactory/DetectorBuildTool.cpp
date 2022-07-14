@@ -36,30 +36,13 @@ void ADetectorBuildTool::BeginOverlap(UPrimitiveComponent *OverlapComponent, AAc
                                       const FHitResult &SweepResult)
 {
     UE_LOG(LogTemp, Warning, TEXT("begin: %s"), *OtherActor->GetName());
-    if (Cast<AHopperInput>(OtherActor) && PlayerController->bHopperInput == false)
-    {
-        PlayerController->HopperInput = Cast<AHopperInput>(OtherActor);
-        UE_LOG(LogTemp, Warning, TEXT("Input hopper set to %s"), *OtherActor->GetName());
-    }
-    else if (Cast<AHopperOutput>(OtherActor) && PlayerController->bHopperOutput == false)
-    {
-        PlayerController->HopperOutput = Cast<AHopperOutput>(OtherActor);
-        UE_LOG(LogTemp, Warning, TEXT("Output hopper set to %s"), *OtherActor->GetName());
-    }
+ 
+    this->PlayerController->Overlap = Cast<AMachine>(OtherActor);
 }
 
 void ADetectorBuildTool::EndOverlap(UPrimitiveComponent *OverlappedComponent, AActor *OtherActor,
                                     UPrimitiveComponent *OtherComponent, int32 OtherBodyIndex)
 {
     // UE_LOG(LogTemp, Warning, TEXT("End: %s"), *OtherActor->GetName());
-    if (OtherActor == PlayerController->HopperInput && PlayerController->bHopperInput == false)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Input hopper set to null: %s"), *OtherActor->GetName());
-        PlayerController->HopperInput = nullptr;
-    }
-    else if (OtherActor == PlayerController->HopperOutput && PlayerController->bHopperOutput == false)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Output hopper set to null: %s"), *OtherActor->GetName());
-        PlayerController->HopperOutput = nullptr;
-    }
+  this->PlayerController->Overlap = nullptr;
 }

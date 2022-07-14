@@ -125,43 +125,34 @@ void APlayerControllerC::CreateMachine(TSubclassOf<AMachine> MachineClass)
     }
 }
 
-// move to Pneumatic tube?
+// TODO move to Pneumatic tube
+// TODO cast overlap to input/output
 void APlayerControllerC::MoveSplinePoint(APneumaticTube *PneumaticTube, FVector BuildVector)
 {
     if (SplinePoint == 0)
     {
-        if (HopperOutput)
+        auto hopperO = Cast<AHopperOutput>(this->Overlap);
+        if (hopperO)
         {
-            PneumaticTube->SetActorLocation(HopperOutput->GetActorLocation());
-            /*+ HopperOutput->GetActorForwardVector() * SecondSplinePointDistance*/
-            PneumaticTube->Spline->SetLocationAtSplinePoint(1, FVector(100, 0, 0), ESplineCoordinateSpace::Local);
-            // PneumaticTube->Spline->SetTangentAtSplinePoint(SplinePoint, HopperOutput->GetActorForwardVector() *
-            // TangentSize, ESplineCoordinateSpace::World, true);
-        }
-        else if (HopperInput)
-        {
-            PneumaticTube->SetActorLocation(HopperInput->GetActorLocation()
-                                            /*+ HopperInput->GetActorForwardVector() * SecondSplinePointDistance*/);
-            // PneumaticTube->Spline->SetTangentAtSplinePoint(SplinePoint, HopperInput->GetActorForwardVector() *
-            // TangentSize, ESplineCoordinateSpace::World, true);
+            UE_LOG(LogTemp, Warning, TEXT("move spline %s"), *hopperO->GetName());
+            PneumaticTube->SetActorLocation(hopperO->GetActorLocation());
+            PneumaticTube->Spline->SetLocationAtSplinePoint(1, FVector(105, 0, 0), ESplineCoordinateSpace::Local);
         }
         else
         {
             PneumaticTube->SetActorLocation(BuildVector, false, nullptr, ETeleportType::TeleportPhysics);
-            PneumaticTube->Spline->SetLocationAtSplinePoint(1, FVector(100, 0, 0), ESplineCoordinateSpace::Local);
+            PneumaticTube->Spline->SetLocationAtSplinePoint(1, FVector(105, 0, 0), ESplineCoordinateSpace::Local);
         }
     }
     else
     {
         // TODO Check if the output hopper for example is already set so we don't snap to the other output actors
-        if (HopperOutput && bHopperOutput == false)
+        auto hopperI = Cast<AHopperInput>(this->Overlap);
+        if (hopperI)
         {
-            PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, HopperOutput->GetActorLocation(),
-                                                            ESplineCoordinateSpace::World, true);
-        }
-        else if (HopperInput && bHopperInput == false)
-        {
-            PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, HopperInput->GetActorLocation(),
+            UE_LOG(LogTemp, Warning, TEXT("%s"), *hopperI->GetName());
+
+            PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, hopperI->GetActorLocation(),
                                                             ESplineCoordinateSpace::World, true);
         }
         else

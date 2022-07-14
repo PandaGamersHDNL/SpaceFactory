@@ -6,7 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "PlayerControllerC.generated.h"
 // maybe
-UENUM()
+/**UENUM()
 enum BuildingType
 {
     Machine UMETA(DisplayName = "Machine"),
@@ -14,7 +14,7 @@ enum BuildingType
     // InputOutput UMETA(DisplayName = "Input/Output"),
 };
 
-/**
+
  *
  */
 
@@ -78,15 +78,10 @@ class SPACEFACTORY_API APlayerControllerC : public APlayerController
 
     UPROPERTY(BlueprintReadWrite)
     class ADetectorBuildTool *DetectorBT;
+    AMachine* Overlap = nullptr;
 
     UPROPERTY(EditDefaultsOnly, Category = "Builder")
     TSubclassOf<class ADetectorBuildTool> DetectorBTBP = nullptr;
-
-    bool bOutputHFirst = true;
-    class AHopperOutput *HopperOutput = nullptr; // output of machine input of pneumatic tube
-    bool bHopperOutput = false;
-    class AHopperInput *HopperInput = nullptr; // reverse
-    bool bHopperInput = false;
 
     UPROPERTY(EditDefaultsOnly, Category = "Builder")
     float TangentSize = 1000.0f;
