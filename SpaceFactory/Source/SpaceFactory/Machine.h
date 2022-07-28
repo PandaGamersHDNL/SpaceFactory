@@ -2,9 +2,9 @@
 
 #pragma once
 
+#include "Blueprint/UserWidget.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Blueprint/UserWidget.h"
 #include "Machine.generated.h"
 
 enum Tiers
@@ -41,6 +41,8 @@ class SPACEFACTORY_API AMachine : public AActor
 
     virtual bool BuildSelf(class ADetectorBuildTool *BuildTool);
 
-    UPROPERTY(EditDefaultsOnly)
+    //TODO make function that moves the machine (basic is set actor/ ex pneumatic tube is different)
+    // TODO open ui when user clicks on building, ore when interacting as player (not builder)
+    UPROPERTY(EditAnywhere)
     TSubclassOf<UUserWidget> ui;
 };

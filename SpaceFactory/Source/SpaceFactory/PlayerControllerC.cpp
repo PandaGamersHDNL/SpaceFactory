@@ -21,6 +21,7 @@ void APlayerControllerC::SetupInputComponent()
 
 void APlayerControllerC::BeginPlay()
 {
+
     Super::BeginPlay();
     PlayerPawn = GetPawn();
     FActorSpawnParameters Params;
@@ -38,6 +39,7 @@ void APlayerControllerC::BeginPlay()
     }
 }
 
+UUserWidget *ui = nullptr;
 void APlayerControllerC::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
@@ -46,7 +48,13 @@ void APlayerControllerC::Tick(float DeltaTime)
     GetMousePosition(MouseX, MouseY);
     if (isInBuildMode && DeprojectScreenPositionToWorld(MouseX, MouseY, Pos, Dir))
     {
+      if (Overlap && Overlap->ui && !ui) {
 
+        ui = CreateWidget(this, Overlap->ui, FName("machine UI"));
+        ui->AddToViewport();
+        UE_LOG(LogTemp, Warning, TEXT("ui has been added to the view port"))
+      }
+        //TODO remove detector use raycast at build height (raycast vs collisions?)
         FVector BuildVector = (Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir));
         if (DetectorBT)
         {
@@ -54,6 +62,7 @@ void APlayerControllerC::Tick(float DeltaTime)
         }
         if (MachineBuilding)
         {
+            
             auto PneumaticTube = Cast<APneumaticTube>(MachineBuilding);
             if (PneumaticTube)
             {
