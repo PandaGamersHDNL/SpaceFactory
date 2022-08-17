@@ -48,11 +48,19 @@ void APlayerControllerC::Tick(float DeltaTime)
     GetMousePosition(MouseX, MouseY);
     if (isInBuildMode && DeprojectScreenPositionToWorld(MouseX, MouseY, Pos, Dir))
     {
-      if (Overlap && Overlap->ui && !ui) {
-
+      /* UE_LOG(LogTemp, Warning, TEXT("overlap: %s, ui: %s"),
+             Overlap ? TEXT("yes") : TEXT("no"),
+             ui ? TEXT("yes") : TEXT("no"))*/
+      if (Overlap) {
+        /* UE_LOG(LogTemp, Warning, TEXT("overlap ui: %s"),
+               Overlap->ui ? TEXT("yes") : TEXT("no"))*/
+      if (Overlap->ui && !ui) {
+        UE_LOG(LogTemp, Warning, TEXT("ui has been added to the view port"));
+        
         ui = CreateWidget(this, Overlap->ui, FName("machine UI"));
-        ui->AddToViewport();
-        UE_LOG(LogTemp, Warning, TEXT("ui has been added to the view port"))
+        ui->AddToPlayerScreen();
+
+      }
       }
         //TODO remove detector use raycast at build height (raycast vs collisions?)
         FVector BuildVector = (Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir));

@@ -29,4 +29,5 @@ class SPACEFACTORY_API ABuyMachine : public AProcessMachine
 
     FTimerHandle TimerHandle;
     void StartTimer();
+
 };

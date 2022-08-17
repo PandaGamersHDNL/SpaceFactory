@@ -45,4 +45,5 @@ class SPACEFACTORY_API AMachine : public AActor
     // TODO open ui when user clicks on building, ore when interacting as player (not builder)
     UPROPERTY(EditAnywhere)
     TSubclassOf<UUserWidget> ui;
+
 };
