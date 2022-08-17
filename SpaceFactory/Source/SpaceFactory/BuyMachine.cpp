@@ -16,6 +16,7 @@ void ABuyMachine::BeginPlay()
 
 void ABuyMachine::SpawnItem()
 {
+    //TODO save spawn data in class, change when bought item changes
     if (SpawnClass && OwnerController && ItemTable && !OutputItem)
     {
         if (!SpawnedItem)

@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "PlayerControllerC.generated.h"
-// maybe
+// maybe grouping in building menu?
 /**UENUM()
 enum BuildingType
 {
@@ -78,7 +78,7 @@ class SPACEFACTORY_API APlayerControllerC : public APlayerController
 
     UPROPERTY(BlueprintReadWrite)
     class ADetectorBuildTool *DetectorBT;
-    AMachine* Overlap = nullptr;
+    AMachine *Overlap = nullptr;
 
     UPROPERTY(EditDefaultsOnly, Category = "Builder")
     TSubclassOf<class ADetectorBuildTool> DetectorBTBP = nullptr;
@@ -91,4 +91,5 @@ class SPACEFACTORY_API APlayerControllerC : public APlayerController
     //--------
 
     void MoveSplinePoint(APneumaticTube *PneumaticTube, FVector BuildVector);
+    UUserWidget *ui = nullptr;
 };

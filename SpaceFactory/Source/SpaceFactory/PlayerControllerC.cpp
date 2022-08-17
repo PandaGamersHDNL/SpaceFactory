@@ -39,7 +39,7 @@ void APlayerControllerC::BeginPlay()
     }
 }
 
-UUserWidget *ui = nullptr;
+
 void APlayerControllerC::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
@@ -48,9 +48,8 @@ void APlayerControllerC::Tick(float DeltaTime)
     GetMousePosition(MouseX, MouseY);
     if (isInBuildMode && DeprojectScreenPositionToWorld(MouseX, MouseY, Pos, Dir))
     {
-      /* UE_LOG(LogTemp, Warning, TEXT("overlap: %s, ui: %s"),
-             Overlap ? TEXT("yes") : TEXT("no"),
-             ui ? TEXT("yes") : TEXT("no"))*/
+      UE_LOG(LogTemp, Warning, TEXT("overlap: %s, ui: %s"),
+             Overlap ? TEXT("yes") : TEXT("no"), ui ? TEXT("yes") : TEXT("no"));
       if (Overlap) {
         /* UE_LOG(LogTemp, Warning, TEXT("overlap ui: %s"),
                Overlap->ui ? TEXT("yes") : TEXT("no"))*/
