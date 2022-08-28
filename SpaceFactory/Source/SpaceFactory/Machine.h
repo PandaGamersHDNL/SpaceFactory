@@ -46,4 +46,7 @@ class SPACEFACTORY_API AMachine : public AActor
     UPROPERTY(EditAnywhere)
     TSubclassOf<UUserWidget> ui;
 
+    virtual void MoveSelf(FVector location) {
+      this->SetActorLocation(location, true);
+    };
 };

@@ -74,8 +74,6 @@ class SPACEFACTORY_API APlayerControllerC : public APlayerController
 
     float MachineRotationSpeed = 5.0f;
 
-    int SplinePoint = 0;
-
     UPROPERTY(BlueprintReadWrite)
     class ADetectorBuildTool *DetectorBT;
     AMachine *Overlap = nullptr;

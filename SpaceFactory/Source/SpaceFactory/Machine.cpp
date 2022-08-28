@@ -30,3 +30,4 @@ bool AMachine::BuildSelf(ADetectorBuildTool *BuildTool)
     UE_LOG(LogTemp, Warning, TEXT("BuildSelf"));
     return true;
 }
+

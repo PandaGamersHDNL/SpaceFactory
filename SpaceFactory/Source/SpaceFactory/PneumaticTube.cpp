@@ -84,17 +84,15 @@ bool APneumaticTube::BuildSelf(ADetectorBuildTool *BuildTool)
     // step 1 set output hopper (input of tube)
     if (!this->HopperOutput && this->OwnerController->Overlap)
     {
-        auto outputH = Cast<AHopperOutput>(this->OwnerController->Overlap);
+        auto outputH = Cast<AHopperOutput>(OwnerController->Overlap);
         if (outputH)
         {
-            this->HopperOutput = outputH;
-            this->OwnerController->SplinePoint += 2;
+            HopperOutput = outputH;
+            SplinePoint += 2;
 
-            this->Spline->SetLocationAtSplinePoint(
-                1, this->GetActorLocation() + (this->GetActorRotation().Vector() * 100.0f),
-                ESplineCoordinateSpace::World, true);
-            this->Spline->AddSplinePoint(BuildTool->GetActorLocation(),
-                                         ESplineCoordinateSpace::World, true);
+            Spline->SetLocationAtSplinePoint(1, this->GetActorLocation() + (this->GetActorRotation().Vector() * 100.0f),
+                                             ESplineCoordinateSpace::World, true);
+            Spline->AddSplinePoint(BuildTool->GetActorLocation(), ESplineCoordinateSpace::World, true);
 
             UE_LOG(LogTemp, Warning, TEXT("there is hopper output"));
         }
@@ -107,7 +105,7 @@ bool APneumaticTube::BuildSelf(ADetectorBuildTool *BuildTool)
     {
         UE_LOG(LogTemp, Error, TEXT("%s %d there were spline %d points"), __FILEW__, __LINE__,
                Spline->GetNumberOfSplinePoints());
-        this->OwnerController->SplinePoint++;
+        SplinePoint++;
         this->Spline->AddSplinePoint(BuildTool->GetActorLocation(), ESplineCoordinateSpace::World, true);
     }
     else
@@ -125,4 +123,41 @@ bool APneumaticTube::BuildSelf(ADetectorBuildTool *BuildTool)
         }
     }
     return false;
+}
+
+void APneumaticTube::MoveSelf(FVector location)
+{
+    // TODO use status?
+    if (SplinePoint == 0)
+    {
+        auto hopperO = Cast<AHopperOutput>(OwnerController->Overlap);
+        if (hopperO)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("move spline %s"), *hopperO->GetName());
+            SetActorLocation(hopperO->GetActorLocation());
+            Spline->SetLocationAtSplinePoint(1, FVector(105, 0, 0), ESplineCoordinateSpace::Local);
+        }
+        else
+        {
+            SetActorLocation(location, false, nullptr, ETeleportType::TeleportPhysics);
+            Spline->SetLocationAtSplinePoint(1, FVector(105, 0, 0), ESplineCoordinateSpace::Local);
+        }
+    }
+    else
+    {
+        // TODO Check if the output hopper for example is already set so we don't
+        // snap to the other output actors
+        auto hopperI = Cast<AHopperInput>(OwnerController->Overlap);
+        if (hopperI)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("%s"), *hopperI->GetName());
+
+            Spline->SetLocationAtSplinePoint(SplinePoint, hopperI->GetActorLocation(), ESplineCoordinateSpace::World,
+                                             true);
+        }
+        else
+        {
+            Spline->SetLocationAtSplinePoint(SplinePoint, location, ESplineCoordinateSpace::World, true);
+        }
+    }
 }

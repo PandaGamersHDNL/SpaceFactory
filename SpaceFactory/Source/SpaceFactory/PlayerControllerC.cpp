@@ -39,7 +39,6 @@ void APlayerControllerC::BeginPlay()
     }
 }
 
-
 void APlayerControllerC::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
@@ -48,20 +47,21 @@ void APlayerControllerC::Tick(float DeltaTime)
     GetMousePosition(MouseX, MouseY);
     if (isInBuildMode && DeprojectScreenPositionToWorld(MouseX, MouseY, Pos, Dir))
     {
-      UE_LOG(LogTemp, Warning, TEXT("overlap: %s, ui: %s"),
-             Overlap ? TEXT("yes") : TEXT("no"), ui ? TEXT("yes") : TEXT("no"));
-      if (Overlap) {
-        /* UE_LOG(LogTemp, Warning, TEXT("overlap ui: %s"),
-               Overlap->ui ? TEXT("yes") : TEXT("no"))*/
-      if (Overlap->ui && !ui) {
-        UE_LOG(LogTemp, Warning, TEXT("ui has been added to the view port"));
-        
-        ui = CreateWidget(this, Overlap->ui, FName("machine UI"));
-        ui->AddToPlayerScreen();
+        UE_LOG(LogTemp, Warning, TEXT("overlap: %s, ui: %s"), Overlap ? TEXT("yes") : TEXT("no"),
+               ui ? TEXT("yes") : TEXT("no"));
+        if (Overlap)
+        {
+            /* UE_LOG(LogTemp, Warning, TEXT("overlap ui: %s"),
+                   Overlap->ui ? TEXT("yes") : TEXT("no"))*/
+            if (Overlap->ui && !ui)
+            {
+                UE_LOG(LogTemp, Warning, TEXT("ui has been added to the view port"));
 
-      }
-      }
-        //TODO remove detector use raycast at build height (raycast vs collisions?)
+                ui = CreateWidget(this, Overlap->ui, FName("machine UI"));
+                ui->AddToPlayerScreen();
+            }
+        }
+        // TODO remove detector use raycast at build height (raycast vs collisions?)
         FVector BuildVector = (Pos + (((BuildHeight - Pos.Z) / Dir.Z) * Dir));
         if (DetectorBT)
         {
@@ -69,15 +69,7 @@ void APlayerControllerC::Tick(float DeltaTime)
         }
         if (MachineBuilding)
         {
-            
-            auto PneumaticTube = Cast<APneumaticTube>(MachineBuilding);
-            if (PneumaticTube)
-            {
-                MoveSplinePoint(PneumaticTube, BuildVector);
-                return;
-            }
-
-            MachineBuilding->SetActorLocation(BuildVector, false);
+            MachineBuilding->MoveSelf(BuildVector);
         }
         // UE_LOG(LogTemp, Warning, TEXT("%i"), SplinePoint);
     }
@@ -138,43 +130,5 @@ void APlayerControllerC::CreateMachine(TSubclassOf<AMachine> MachineClass)
         FActorSpawnParameters Params;
         MachineBuilding = GetWorld()->SpawnActor<AMachine>(MachineClass.Get(), FVector(0.0f, 0.0f, BuilderHeight),
                                                            FRotator(0, 0.0f, 0.0f), Params);
-    }
-}
-
-// TODO move to Pneumatic tube
-// TODO cast overlap to input/output
-void APlayerControllerC::MoveSplinePoint(APneumaticTube *PneumaticTube, FVector BuildVector)
-{
-    if (SplinePoint == 0)
-    {
-        auto hopperO = Cast<AHopperOutput>(this->Overlap);
-        if (hopperO)
-        {
-            UE_LOG(LogTemp, Warning, TEXT("move spline %s"), *hopperO->GetName());
-            PneumaticTube->SetActorLocation(hopperO->GetActorLocation());
-            PneumaticTube->Spline->SetLocationAtSplinePoint(1, FVector(105, 0, 0), ESplineCoordinateSpace::Local);
-        }
-        else
-        {
-            PneumaticTube->SetActorLocation(BuildVector, false, nullptr, ETeleportType::TeleportPhysics);
-            PneumaticTube->Spline->SetLocationAtSplinePoint(1, FVector(105, 0, 0), ESplineCoordinateSpace::Local);
-        }
-    }
-    else
-    {
-        // TODO Check if the output hopper for example is already set so we don't snap to the other output actors
-        auto hopperI = Cast<AHopperInput>(this->Overlap);
-        if (hopperI)
-        {
-            UE_LOG(LogTemp, Warning, TEXT("%s"), *hopperI->GetName());
-
-            PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, hopperI->GetActorLocation(),
-                                                            ESplineCoordinateSpace::World, true);
-        }
-        else
-        {
-            PneumaticTube->Spline->SetLocationAtSplinePoint(SplinePoint, BuildVector, ESplineCoordinateSpace::World,
-                                                            true);
-        }
     }
 }

@@ -61,4 +61,7 @@ class SPACEFACTORY_API APneumaticTube : public AMachine
     class AHopperInput *HopperInput;
 
     virtual bool BuildSelf(class ADetectorBuildTool *BuildTool) override;
+    virtual void MoveSelf(FVector location);
+
+    int SplinePoint = 0;
 };
