@@ -12,9 +12,12 @@ struct FItemAmount
 {
 	GENERATED_USTRUCT_BODY();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Recipe)
+    FName ItemDisplayName = FName(TEXT("default"));
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ItemAmount)
 	TSubclassOf<class AItem> Item;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ItemAmount)
-	int Amount;
+	int Amount = 1;
 };
