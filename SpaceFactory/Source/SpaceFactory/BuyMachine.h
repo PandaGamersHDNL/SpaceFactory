@@ -7,28 +7,27 @@
 #include "BuyMachine.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class SPACEFACTORY_API ABuyMachine : public AProcessMachine
 {
-	GENERATED_BODY()
-private:
-	class AItem *SpawnedItem;
-	
+    GENERATED_BODY()
+  private:
+    class AItem *SpawnedItem;
 
-public:
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<class AItem> SpawnClass;
+  public:
+    UPROPERTY(EditAnywhere)
+    TSubclassOf<class AItem> SpawnClass;
 
+    UPROPERTY(EditAnywhere)
+    class UDataTable *ItemTable = nullptr;
 
-	UPROPERTY(EditAnywhere)
-	class UDataTable* ItemTable = nullptr;
+    virtual void BeginPlay() override;
 
-	virtual void BeginPlay() override;
+    void SpawnItem();
 
-	void SpawnItem();
+    FTimerHandle TimerHandle;
+    void StartTimer();
 
-	FTimerHandle TimerHandle;
-	void StartTimer();
 };

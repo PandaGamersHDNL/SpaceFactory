@@ -11,49 +11,57 @@
 UCLASS()
 class SPACEFACTORY_API APneumaticTube : public AMachine
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-public:
-	// Sets default values for this actor's properties
-	APneumaticTube();
+  public:
+    // Sets default values for this actor's properties
+    APneumaticTube();
 
-	bool OnInputHopper = false;
-	bool OnOutputHopper = false; //is input for tube
+    bool OnInputHopper = false;
+    bool OnOutputHopper = false; // is input for tube
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	USplineComponent *Spline;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    USplineComponent *Spline;
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+  protected:
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
 
-	UFUNCTION()
-	//void OnBeginOverlap(UPrimitiveComponent* OverlappedComp , AActor* Overlapped, AActor* Other, int32 BodyIndex, bool bSweep, FHitResult& SweepResult );
-	void OnBeginOverlap(class UPrimitiveComponent *OverlapComponent, class AActor *OtherActor, class UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
-	UPROPERTY(VisibleAnywhere)
-	class USplineMeshComponent *Mesh;
+    UFUNCTION()
+    // void OnBeginOverlap(UPrimitiveComponent* OverlappedComp , AActor* Overlapped, AActor* Other, int32 BodyIndex,
+    // bool bSweep, FHitResult& SweepResult );
+    void OnBeginOverlap(class UPrimitiveComponent *OverlapComponent, class AActor *OtherActor,
+                        class UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+                        const FHitResult &SweepResult);
+    UPROPERTY(VisibleAnywhere)
+    class USplineMeshComponent *Mesh;
 
-	UPROPERTY(VisibleAnywhere)
-	USceneComponent *SceneComponent;
+    UPROPERTY(VisibleAnywhere)
+    USceneComponent *SceneComponent;
 
-public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+  public:
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
 
-	//Item Transport	only for 1 item per pneumatic tube
-	UPROPERTY(EditAnywhere)
-	class AItem *TransportingItem;
+    // Item Transport	only for 1 item per pneumatic tube
+    UPROPERTY(EditAnywhere)
+    class AItem *TransportingItem;
 
-	void MoveItem(float DeltaTime);
+    void MoveItem(float DeltaTime);
 
-	float ItemDistance = 0.0f;
+    float ItemDistance = 0.0f;
 
-	UPROPERTY(EditAnywhere) //TODO EditDefaultsOnly
-	float TransportSpeed = 200.0f;
+    UPROPERTY(EditAnywhere) // TODO EditDefaultsOnly
+    float TransportSpeed = 200.0f;
 
-		UPROPERTY(EditAnywhere)
-	class AHopperOutput *HopperOutput;
+    UPROPERTY(EditAnywhere)
+    class AHopperOutput *HopperOutput;
 
-	UPROPERTY(EditAnywhere)
-	class AHopperInput *HopperInput;
+    UPROPERTY(EditAnywhere)
+    class AHopperInput *HopperInput;
+
+    virtual bool BuildSelf(class ADetectorBuildTool *BuildTool) override;
+    virtual void MoveSelf(FVector location);
+
+    int SplinePoint = 0;
 };

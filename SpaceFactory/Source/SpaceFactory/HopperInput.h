@@ -7,14 +7,14 @@
 #include "HopperInput.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class SPACEFACTORY_API AHopperInput : public AMachineIO
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-public:
-	void InputItem();
-	bool BuildSelf(class ADetectorBuildTool *BuildTool) override;
+  public:
+    void InputItem();
+    bool BuildSelf(class ADetectorBuildTool *BuildTool) override;
 };

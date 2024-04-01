@@ -7,22 +7,23 @@
 #include "SellMachine.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class SPACEFACTORY_API ASellMachine : public AProcessMachine
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	ASellMachine();
-	public:
-		virtual void Tick(float DeltaTime) override;
-	
-	UPROPERTY(BlueprintReadWrite)
-	class AItem* ItemToSell = nullptr;
+    ASellMachine();
 
-	UPROPERTY(EditAnywhere)
-	class UDataTable* ItemTable = nullptr;
+  public:
+    virtual void Tick(float DeltaTime) override;
 
-	void SellItem();
+    UPROPERTY(BlueprintReadWrite)
+    class AItem *ItemToSell = nullptr;
+
+    UPROPERTY(EditAnywhere)
+    class UDataTable *ItemTable = nullptr;
+
+    void SellItem();
 };

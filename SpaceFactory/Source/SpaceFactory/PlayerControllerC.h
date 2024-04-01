@@ -5,16 +5,16 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "PlayerControllerC.generated.h"
-//maybe
-UENUM()
+// maybe grouping in building menu?
+/**UENUM()
 enum BuildingType
 {
-	Machine UMETA(DisplayName = "Machine"),
-	PneumaticTube UMETA(DisplayName = "Pneumatic tube")
-	//InputOutput UMETA(DisplayName = "Input/Output"),
+    Machine UMETA(DisplayName = "Machine"),
+    PneumaticTube UMETA(DisplayName = "Pneumatic tube")
+    // InputOutput UMETA(DisplayName = "Input/Output"),
 };
 
-/**
+
  *
  */
 
@@ -24,77 +24,70 @@ class APneumaticTube;
 UCLASS()
 class SPACEFACTORY_API APlayerControllerC : public APlayerController
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-public:
-	//APlayerControllerC();
+  public:
+    // APlayerControllerC();
 
-	void Tick(float DeltaTime) override;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int Money = 100;
+    void Tick(float DeltaTime) override;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    int Money = 100;
 
-	UPROPERTY(BlueprintReadWrite)
-	bool isInBuildMode = false;
+    UPROPERTY(BlueprintReadWrite)
+    bool isInBuildMode = false;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	class AMachine *MachineBuilding = nullptr;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    class AMachine *MachineBuilding = nullptr;
 
-	void SetupInputComponent();
-	void BeginPlay() override;
+    void SetupInputComponent();
+    void BeginPlay() override;
 
-	UPROPERTY(BlueprintReadWrite)
-	APawn *PlayerPawn = nullptr;
+    UPROPERTY(BlueprintReadWrite)
+    APawn *PlayerPawn = nullptr;
 
-	UPROPERTY(BlueprintReadWrite)
-	ABuilderPawn *BuilderPawn = nullptr;
+    UPROPERTY(BlueprintReadWrite)
+    ABuilderPawn *BuilderPawn = nullptr;
 
-	//builder
-	UFUNCTION(BlueprintImplementableEvent)
-	void BuildingMenu(bool IsInBuildingMode);
+    // builder
+    UFUNCTION(BlueprintImplementableEvent)
+    void BuildingMenu(bool IsInBuildingMode);
 
-	//height of the new building
-	UPROPERTY(EditAnywhere, Category = "Builder")
-	float BuildHeight = 100.0f;
+    // height of the new building
+    UPROPERTY(EditAnywhere, Category = "Builder")
+    float BuildHeight = 100.0f;
 
-	void BuildModeActivate();
-	//height of the builder pawn
-	UPROPERTY(EditDefaultsOnly, Category = "Builder")
-	float BuilderHeight = 500.0f;
+    void BuildModeActivate();
+    // height of the builder pawn
+    UPROPERTY(EditDefaultsOnly, Category = "Builder")
+    float BuilderHeight = 500.0f;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Builder")
-	TSubclassOf<ABuilderPawn> BuildingBp = nullptr;
+    UPROPERTY(EditDefaultsOnly, Category = "Builder")
+    TSubclassOf<ABuilderPawn> BuildingBp = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Builder")
-	float BuilderAngle = -30.0f;
+    UPROPERTY(EditDefaultsOnly, Category = "Builder")
+    float BuilderAngle = -30.0f;
 
-	void BuildMachine();
-	void RotateMachine(float Scale);
-	UFUNCTION(BlueprintCallable)
-	void CreateMachine(TSubclassOf<AMachine> MachineClass);
+    void BuildMachine();
+    void RotateMachine(float Scale);
+    UFUNCTION(BlueprintCallable)
+    void CreateMachine(TSubclassOf<AMachine> MachineClass);
 
-	float MachineRotationSpeed = 5.0f;
+    float MachineRotationSpeed = 5.0f;
 
-	int SplinePoint = 0;
+    UPROPERTY(BlueprintReadWrite)
+    class ADetectorBuildTool *DetectorBT;
+    AMachine *Overlap = nullptr;
 
-	UPROPERTY(BlueprintReadWrite)
-	class ADetectorBuildTool *DetectorBT;
+    UPROPERTY(EditDefaultsOnly, Category = "Builder")
+    TSubclassOf<class ADetectorBuildTool> DetectorBTBP = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Builder")
-	TSubclassOf<class ADetectorBuildTool> DetectorBTBP = nullptr;
+    UPROPERTY(EditDefaultsOnly, Category = "Builder")
+    float TangentSize = 1000.0f;
 
-	bool bOutputHFirst = true;
-	class AHopperOutput *HopperOutput = nullptr; // output of machine input of pneumatic tube
-	bool bHopperOutput = false;
-	class AHopperInput *HopperInput = nullptr; //reverse
-	bool bHopperInput = false;
+    UPROPERTY(EditDefaultsOnly)
+    float SecondSplinePointDistance = 100.0f;
+    //--------
 
-	UPROPERTY(EditDefaultsOnly, Category = "Builder")
-	float TangentSize = 1000.0f;
-
-	UPROPERTY(EditDefaultsOnly)
-	float SecondSplinePointDistance = 100.0f;
-	//--------
-
-	void MoveSplinePoint(APneumaticTube *PneumaticTube, FVector BuildVector);
-	void BuildSpline(APneumaticTube *PneumaticTube);
+    void MoveSplinePoint(APneumaticTube *PneumaticTube, FVector BuildVector);
+    UUserWidget *ui = nullptr;
 };

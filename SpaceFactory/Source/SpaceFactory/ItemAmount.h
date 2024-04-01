@@ -5,12 +5,12 @@
 #include "ItemAmount.generated.h"
 
 /**
- * 
+ *
  */
 USTRUCT(BlueprintType)
 struct FItemAmount
 {
-	GENERATED_USTRUCT_BODY();
+    GENERATED_USTRUCT_BODY();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Recipe)
     FName ItemDisplayName = FName(TEXT("default"));
